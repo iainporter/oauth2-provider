@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>oauth2 Application</title>
+    <link href="css/styles.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+
+    <div id="container">
+
+        <input id="email" type="email" placeholder="Email">
+        <input type="password" id="password" placeholder="Password">
+  	    <input type="password" id="password2" placeholder="Confirm Password">
+  	    <input type="text" id="firstName" placeholder="First Name">
+  	    <input type="checkbox" value="true" name="agree" id="agree"><label for="agree" id="terms_label">I agree to the <b><a href="terms.html" target="_blank">terms of service</a></b>.</label><br><br>
+
+  	    <div id="error_message"></div>
+
+  	    <button type="submit" id="login_button" class="small_button">Sign Up</button>
+
+  	    <a href="index.html" class="right_link">Login</a>
+
+	    <!--footer-->
+	    <div id="footer">
+      </div>
+
+    </div>
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/oauth2.js"></script>
+    <script src="js/cookie.js"></script>
+    <script src="js/sha256.js"></script>
+    <script src="js/enc-base64-min.js"></script>
+    <script src="js/user.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function () {
+
+      // Submit form on enter
+      $('input').live('keydown', function (event) {
+        if (event.keyCode === 13)
+          $('#login_button').click()
+      })
+
+      if (oauth2.user.is_logged_in())
+        window.location = 'dashboard.html'
+      $('#login_button').on('click', function () {
+
+
+        if (!$('#agree').is(':checked'))
+          return $('#error_message').html('You must agree to the terms of service.').show()
+
+        oauth2.user.create($('#firstName').val(), $('#email').val(), $('#password').val(), '', function (error) {
+          if (!error)
+            window.location = 'dashboard.html'
+          else {
+            console.log(error)
+            if (error.status == '409')
+              $('#error_message').html('Email already registered.').show()
+            else
+              $('#error_message').html('Please fix your email address/password.').show()
+          }
+        })
+      })
+
+    })
+    </script>
+  </body>
+</html>

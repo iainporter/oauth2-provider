@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+       xmlns:sec="http://www.springframework.org/schema/security"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                      http://www.springframework.org/schema/beans/spring-beans.xsd
+					  http://www.springframework.org/schema/security/oauth2
+					  http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+					  http://www.springframework.org/schema/security
+					  http://www.springframework.org/schema/security/spring-security-3.1.xsd">
+
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
+
+    <sec:authentication-manager alias="userAuthenticationManager">
+    <sec:authentication-provider user-service-ref="userService">
+        <sec:password-encoder ref="passwordEncoder"/>
+    </sec:authentication-provider>
+    </sec:authentication-manager>
+
+
+</beans>

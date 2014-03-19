@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+       xmlns:sec="http://www.springframework.org/schema/security"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-1.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+		http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+    <context:component-scan base-package="com.porterhead.oauth2.configuration"/>
+
+    <sec:global-method-security pre-post-annotations="enabled" proxy-target-class="true" jsr250-annotations="enabled">
+        <!--you could also wire in the expression handler up at the layer of the http filters. See https://jira.springsource.org/browse/SEC-1452 -->
+        <sec:expression-handler ref="oauthExpressionHandler"/>
+    </sec:global-method-security>
+
+    <oauth:expression-handler id="oauthExpressionHandler"/>
+
+    <oauth:web-expression-handler id="oauthWebExpressionHandler"/>
+
+    <beans profile="dev, default">
+        <bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore"/>
+    </beans>
+
+    <beans profile="local, stage, test, production">
+        <bean id="tokenStore" class="com.anchorage.geo.oauth2.OAuth2RepositoryTokenStore">
+            <constructor-arg ref="oAuth2AccessTokenRepository"/>
+            <constructor-arg ref="oAuth2RefreshTokenRepository"/>
+        </bean>
+    </beans>
+
+</beans>

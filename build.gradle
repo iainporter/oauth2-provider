@@ -1,0 +1,107 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'eclipse'
+apply plugin: 'war'
+apply plugin: 'tomcat'
+
+group = 'com.porterhead.oauth2.provider'
+version = '1.0.SNAPSHOT'
+
+buildscript {
+
+    repositories {
+        mavenCentral()
+        jcenter()
+
+    }
+
+    dependencies {
+
+        classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0'
+
+    }
+}
+
+
+ext {
+    springFrameworkVersion = "3.2.4.RELEASE"
+    springDataVersion = "1.4.0.RELEASE"
+    springDataMongoDBVersion = "1.4.0.RELEASE"
+    springSecurityOauth2Version = "1.0.5.RELEASE"
+    tomcatVersion = '7.0.11'
+    springSecurityVersion = "3.1.4.RELEASE"
+    jerseyVersion = "1.9.1"
+    jacksonVersion = "1.9.3"
+
+}
+
+
+repositories {
+    mavenCentral()
+}
+
+
+dependencies {
+
+    providedCompile "javax.servlet:servlet-api:2.5"
+    compile "org.springframework:spring-beans:${springFrameworkVersion}"
+    compile "org.springframework:spring-core:${springFrameworkVersion}"
+    compile "org.springframework:spring-context:${springFrameworkVersion}"
+    compile "org.springframework:spring-webmvc:${springFrameworkVersion}"
+    compile "org.springframework:spring-web:${springFrameworkVersion}"
+    compile "org.springframework.security.oauth:spring-security-oauth2:${springSecurityOauth2Version}"
+    compile "org.springframework.security:spring-security-core:${springSecurityVersion}"
+    compile "org.springframework.data:spring-data-jpa:${springDataVersion}"
+    compile "org.springframework.data:spring-data-mongodb:${springDataMongoDBVersion}"
+    compile "org.springframework.integration:spring-integration-core:2.2.6.RELEASE"
+    compile "org.springframework.integration:spring-integration-mail:2.2.6.RELEASE"
+    compile "javax.ws.rs:jsr311-api:1.1.1"
+    compile "javax.annotation:jsr250-api:1.0"
+    compile "org.hibernate:hibernate-validator:5.1.0.Final"
+    compile "javax.el:javax.el-api:2.2.5"
+    compile "org.glassfish.web:javax.el:2.2.5"
+    compile "javax.mail:mail:1.4.3"
+    compile "org.apache.velocity:velocity:1.7"
+    compile "joda-time:joda-time:2.3"
+    compile "com.sun.jersey:jersey-core:${jerseyVersion}"
+    compile "com.sun.jersey:jersey-server:${jerseyVersion}"
+    compile "com.sun.jersey:jersey-json:${jerseyVersion}"
+    compile "com.sun.jersey.contribs:jersey-spring:${jerseyVersion}"
+    compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
+    compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
+    compile "org.codehaus.jackson:jackson-xc:$jacksonVersion"
+
+    compile "org.slf4j:slf4j-api:1.7.5"
+    runtime "ch.qos.logback:logback-classic:1.0.13"
+    testCompile "org.springframework:spring-test:${springFrameworkVersion}"
+    testCompile "junit:junit:4.11"
+    testCompile "org.hamcrest:hamcrest-all:1.1"
+    testCompile "org.mockito:mockito-all:1.9.0"
+
+    testCompile "org.springframework:spring-test:$springFrameworkVersion",
+            //"org.codehaus.groovy.modules.http-builder:http-builder:0.5.2",
+            //"org.codehaus.groovy:groovy-all:$groovyVersion",
+            "com.sun.jersey:jersey-test-framework:$jerseyVersion",
+            "com.sun.jersey.jersey-test-framework:jersey-test-framework-grizzly2:$jerseyVersion",
+            "com.sun.jersey.jersey-test-framework:jersey-test-framework-core:$jerseyVersion",
+            "com.sun.jersey:jersey-grizzly2:$jerseyVersion",
+            "org.glassfish.grizzly:grizzly-http:2.1.2",
+            "org.glassfish.gmbal:gmbal-api-only:3.0.0-b023",
+            "org.glassfish.external:management-api:3.0.0-b012",
+            "org.glassfish.grizzly:grizzly-http-server:2.1.2",
+            "org.glassfish.grizzly:grizzly-rcm:2.1.2",
+            "org.glassfish.grizzly:grizzly-http-servlet:2.1.2",
+            "org.glassfish:javax.servlet:3.1",
+            "com.sun.jersey:jersey-client:$jerseyVersion"
+
+    testCompile("org.codehaus.groovy.modules.http-builder:http-builder:0.5.2") {
+        exclude group: 'org.codehaus.groovy'
+    }
+
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
+}

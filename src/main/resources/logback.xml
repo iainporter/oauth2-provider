@@ -1,0 +1,13 @@
+<configuration>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>
+                logbak: %d{HH:mm:ss.SSS} %logger{36} - %msg%n
+            </Pattern>
+        </layout>
+    </appender>
+    <logger name="com.porterhead" level="INFO"/>
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+</configuration>

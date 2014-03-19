@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><App Name> Registration</title>
+  </head>
+  <body style="margin: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #333333; background-color: #F2F2F2;">
+    <table style="width: 100%; background-color: #F2F2F2; height: 100%;">
+      <tr><td style="width: 100%;">
+
+        <table style="background-color: #ffffff; border-radius: 10px; width: 935px;">
+          <tr>
+
+            <!-- HEADER MESSAGE -->
+            <td style="padding-left: 30px; padding-bottom: 20px; padding-top: 10px;"><h2>Welcome to <App Name></h2></td>
+
+          </tr>
+
+          <tr>
+
+            <td style="padding-left: 30px; border-left: 2px solid #E7E7E8;">
+
+              <!-- MESSAGE -->
+
+              <p>Thanks for coming on board to <App Name>. <br/>
+                  Your registration is complete when you <a href="${model.getHostNameUrl()}/validate.html?${model.getEncodedToken()}">click here</a> to validate your email address.</p>
+              <br>
+
+              <br>
+              <br>
+
+              <!-- LEGALESE -->
+
+              <div style="font-size: 12px;">
+                <p>Please don't reply to this automatically generated email.</p>
+
+                <p>What is this doing in my mailbox?</p>
+
+                <p>If you do not wish to sign up for <App Name>, you do not need to click through on the link above, and we will not contact you again unless you request it. As such, there is no need to unsubscribe.</p>
+
+                <p>Thanks for trying <App Name>!</p>
+              </div>
+            </td>
+          </tr>
+        </table>
+
+      </td></tr>
+    </table>
+  </body>
+</html>

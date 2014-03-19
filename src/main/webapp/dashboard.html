@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><App Name> application</title>
+    <link href="css/styles.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  </head>
+  <body>
+
+    <div id="container">
+      <!--nav-->
+      <div id="main">
+        Welcome to <App Name>
+	    </div>
+
+      <!--content-->
+      <div class="section">
+        <h4 id="name"></h4>
+        <div id="verified"></div>
+        <br>
+        <button class="small_button" type="submit" onclick="oauth2.user.logout();">Logout</button>
+	    </div>
+
+	    <!--footer-->
+	    <div id="footer">
+      </div>
+
+    </div>
+
+    <script src="js/jquery-1.8.2.min.js"></script>
+    <script src="js/store.js"></script>
+    <script src="js/sha256.js"></script>
+    <script src="js/enc-base64-min.js"></script>
+    <script src="js/oauth2.js"></script>
+    <script src="js/cookie.js"></script>
+    <script src="js/user.js"></script>
+    <script type="text/javascript">
+
+    // Require user to be logged in
+    if (!oauth2.user.is_logged_in())
+      window.location = 'index.html'
+
+    $(document).ready(function () {
+
+
+      oauth2.user.get(function (error) {
+        if (error)
+          return console.log(error)
+        var name = oauth2.user.user.firstName + ' ' + (oauth2.user.user.lastName || '')
+        $('#name').html((name != ' ' ? name : oauth2.user.user.emailAddress))
+
+
+        if (oauth2.user.user.verified)
+          $('#verified').html('Email verified')
+        else
+          $('#verified').html('Email unverified <a href="request_email.html" style="color: blue;">Resend verification email.</a>')
+      })
+    })
+    </script>
+  </body>
+</html>

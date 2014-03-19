@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context
+                      http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- Have Spring servlet handle all static content -->
+    <mvc:default-servlet-handler/>
+    <mvc:annotation-driven />
+
+    <!--<bean id="propertyConfigurer"-->
+          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+        <!--<property name="locations">-->
+            <!--<list>-->
+                <!--<value>classpath:properties/application.properties</value>-->
+                <!--<value>file:${PROPERTY_FILE_LOCATION}</value>-->
+            <!--</list>-->
+        <!--</property>-->
+        <!--<property name="ignoreResourceNotFound" value="true"/>-->
+        <!--<property name="searchSystemEnvironment" value="true"/>-->
+        <!--<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>-->
+    <!--</bean>-->
+
+    <context:component-scan base-package="com.porterhead.filter"/>
+    <context:component-scan base-package="com.porterhead.configuration"/>
+    <context:component-scan base-package="com.porterhead.resource"/>
+    <context:component-scan base-package="com.porterhead.user"/>
+
+    <import resource="classpath:META-INF/spring/security/authentication-managers.xml"/>
+    <import resource="classpath:META-INF/spring/oauth/authorization-server.xml"/>
+    <import resource="classpath:META-INF/spring/oauth/token-store.xml"/>
+    <import resource="classpath:META-INF/spring/oauth/client-details.xml"/>
+
+
+</beans>
