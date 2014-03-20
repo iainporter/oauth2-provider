@@ -6,7 +6,5 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     public User findByEmailAddress(final String name);
 
-    public User findBySecretKey(final String secretKey);
-
     public User findById(final String id);
 }

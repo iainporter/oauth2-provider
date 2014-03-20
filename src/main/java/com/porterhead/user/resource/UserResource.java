@@ -38,8 +38,8 @@ public class UserResource extends BaseResource {
 
     @PermitAll
     @POST
-    public Response signupUser(final CreateUserRequest request) {
-        CreateUserResponse createUserResponse = userService.createUser(request);
+    public Response signupUser(final CreateUserRequest request, @Context SecurityContext sc) {
+        CreateUserResponse createUserResponse = userService.createUser(request, sc.getUserPrincipal());
         verificationTokenService.sendEmailRegistrationToken(createUserResponse.getApiUser().getId());
         URI location = uriInfo.getAbsolutePathBuilder().path(createUserResponse.getApiUser().getId()).build();
         return Response.created(location).entity(createUserResponse).build();

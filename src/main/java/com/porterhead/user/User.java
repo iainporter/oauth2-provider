@@ -24,7 +24,6 @@ public class User extends BaseEntity implements UserDetails {
     private Integer age;
     private Gender gender;
     private String hashedPassword;
-    private String secretKey;
     private Boolean verified = false;
     private List<Role> roles = new ArrayList<Role>();
 
@@ -170,9 +169,5 @@ public class User extends BaseEntity implements UserDetails {
 
     public boolean hasRole(Role role) {
         return (this.roles.contains(role));
-    }
-
-    public String getSecretKey() {
-        return secretKey;
     }
 }

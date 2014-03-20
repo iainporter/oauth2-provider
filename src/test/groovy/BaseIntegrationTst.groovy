@@ -10,7 +10,7 @@ class BaseIntegrationTst extends GroovyTestCase {
     private def OAUTH_TOKEN_PATH = "oauth/token"
     private def restClient;
     def TEST_PASSWORD = "password123"
-    def BASIC_AUTH_TOKEN = 'YmFyY2Vsb25hLW1vYmlsZTpzZWNyZXQ='
+    def BASIC_AUTH_TOKEN = 'MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM='
     def static SUCCESS = 200
 
     def SignUp registration = new SignUp(getRestClient(), USER_PATH)

@@ -20,9 +20,11 @@ import org.springframework.security.oauth2.provider.DefaultAuthorizationRequest;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.validation.Validator;
+import java.security.Principal;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -52,7 +54,8 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
         return locateUser(username);
     }
 
-    public CreateUserResponse createUser(final CreateUserRequest createUserRequest) {
+    @Transactional
+    public CreateUserResponse createUser(final CreateUserRequest createUserRequest, final Principal principal) {
 
         LOG.info("Validating user request.");
         validate(createUserRequest);
@@ -64,7 +67,7 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
             String hashedPassword = passwordEncoder.encode(createUserRequest.getPassword().getPassword());
             UsernamePasswordAuthenticationToken userAuthentication = new UsernamePasswordAuthenticationToken(emailAddress,
 			hashedPassword, Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_USER.toString())));
-            DefaultAuthorizationRequest authorizationRequest = new DefaultAuthorizationRequest("app-mobile", Arrays.asList("read", "write"));
+            DefaultAuthorizationRequest authorizationRequest = new DefaultAuthorizationRequest(principal.getName(), Arrays.asList("read", "write"));
             authorizationRequest.setApproved(true);
             OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(authorizationRequest, userAuthentication);
             OAuth2AccessToken token = tokenServices.createAccessToken(oAuth2Authentication);
