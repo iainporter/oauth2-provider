@@ -14,9 +14,6 @@ import javax.validation.Validator;
 @Configuration
 public class SupportConfiguration {
 
-    @Autowired
-    private UserRepository userRepository;
-
     @Bean
     public Validator validator() {
         return Validation.buildDefaultValidatorFactory().getValidator();

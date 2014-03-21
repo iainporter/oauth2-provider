@@ -8,7 +8,7 @@ import java.security.Principal;
 
 public interface UserService {
 
-    public CreateUserResponse createUser(final CreateUserRequest createUserRequest, Principal principal);
+    public ApiUser createUser(final CreateUserRequest createUserRequest);
 
     public ApiUser authenticate(String username, String password);
 

@@ -57,7 +57,7 @@ public class MailSenderServiceTest {
         tokenStore = mock(TokenStore.class);
         tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(tokenStore);
-        userService = new UserServiceImpl(userRepository, validator, tokenServices, new StandardPasswordEncoder());
+        userService = new UserServiceImpl(userRepository, validator, new StandardPasswordEncoder());
         final User user = new User(getUser(), password, Role.ROLE_USER);
         Mockito.when(userRepository.findByEmailAddress(emailAddress)).thenAnswer(new Answer<Object>() {
             @Override

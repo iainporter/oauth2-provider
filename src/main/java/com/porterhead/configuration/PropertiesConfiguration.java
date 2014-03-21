@@ -13,10 +13,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @Configuration
 @EnableAsync
-//@PropertySource(value = {
-//        "classpath:properties/application.properties",
-//        "file:${PROPERTY_FILE_LOCATION}"
-//})
 public class PropertiesConfiguration {
 
     private final Logger LOG = LoggerFactory.getLogger(this.getClass());

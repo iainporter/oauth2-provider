@@ -45,7 +45,7 @@ public class UserServiceTest {
         tokenStore = mock(TokenStore.class);
         tokenServices = new DefaultTokenServices();
         tokenServices.setTokenStore(tokenStore);
-        userService = new UserServiceImpl(userRepository, validator, tokenServices, new StandardPasswordEncoder());
+        userService = new UserServiceImpl(userRepository, validator, new StandardPasswordEncoder());
         final User user = new User(getApiUser(), password, Role.ROLE_USER);
         Mockito.when(userRepository.save(Mockito.any(User.class))).thenAnswer(new Answer<Object>() {
             @Override
@@ -58,9 +58,8 @@ public class UserServiceTest {
     @Test
     public void createNewUserNonExisting() throws Exception {
         mockEmailNotFound();
-        CreateUserResponse userToken = createUserWithRandomUserName();
-        assertThat(userToken.getApiUser(), is(not(Matchers.<Object>nullValue())));
-        assertThat(userToken.getOAuth2AccessToken(), is(not(Matchers.<Object>nullValue())));
+        ApiUser user = createUserWithRandomUserName();
+        assertThat(user, is(not(Matchers.<Object>nullValue())));
         verify(userRepository, times(1)).save(Mockito.any(User.class));
         verify(userRepository, times(1)).findByEmailAddress(Mockito.any(String.class));
     }
@@ -127,7 +126,7 @@ public class UserServiceTest {
         });
     }
 
-    private CreateUserResponse createUserWithRandomUserName() {
+    private ApiUser createUserWithRandomUserName() {
         CreateUserRequest request = getDefaultCreateUserRequest();
         return userService.createUser(request);
     }

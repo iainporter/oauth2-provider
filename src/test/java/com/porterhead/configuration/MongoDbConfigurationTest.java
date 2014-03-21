@@ -63,19 +63,19 @@ public class MongoDbConfigurationTest {
         if (environment.getProperty(SPRING_PROFILES_ACTIVE) == null) {
             assertThat(mongoDbServer, is("localhost"));
             assertThat(mongoDbPort, is(37017));
-            assertThat(mongoDbName, is("geo1"));
+            assertThat(mongoDbName, is("oauth-provider"));
             assertThat(mongoUserCollectionLogon, is(""));
             assertThat(mongoUserCollectionPassword, is(""));
         } else if (environment.getProperty(SPRING_PROFILES_ACTIVE).equals("dev")) {
             assertThat(mongoDbServer, is("localhost"));
             assertThat(mongoDbPort, is(37017));
-            assertThat(mongoDbName, is("geo1"));
+            assertThat(mongoDbName, is("oauth-provider"));
             assertThat(mongoUserCollectionLogon, is(""));
             assertThat(mongoUserCollectionPassword, is(""));
         } else if (environment.getProperty(SPRING_PROFILES_ACTIVE).equals("local")) {
             assertThat(mongoDbServer, is("localhost"));
             assertThat(mongoDbPort, is(27017));
-            assertThat(mongoDbName, is("geo1"));
+            assertThat(mongoDbName, is("oauth-provider"));
             assertThat(mongoUserCollectionLogon, notNullValue());
             assertThat(mongoUserCollectionPassword, notNullValue());
         }

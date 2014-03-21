@@ -42,12 +42,12 @@ public class UserConfiguration {
     
     @Bean
     public UserService userService() {
-        return new UserServiceImpl(userRepository, validator, tokenServices, passwordEncoder);
+        return new UserServiceImpl(userRepository, validator, passwordEncoder);
     } 
     
     @Bean
     public UserResource userResource() {
-        return new UserResource(userService(), verificationTokenService());
+        return new UserResource(userService(), verificationTokenService(), tokenServices, passwordEncoder);
     }
 
     @Bean

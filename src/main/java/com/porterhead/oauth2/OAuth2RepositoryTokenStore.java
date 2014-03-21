@@ -53,7 +53,7 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
     public OAuth2AccessToken readAccessToken(String tokenValue) {
         OAuth2AuthenticationAccessToken token = oAuth2AccessTokenRepository.findByTokenId(tokenValue);
         if(token == null) {
-            throw new AuthorizationException("Token not found");
+            return null; //let spring security handle the invalid token
         }
         OAuth2AccessToken accessToken = token.getoAuth2AccessToken();
 		return accessToken;

@@ -20,11 +20,11 @@ public class CreateUserResponse {
 
     public CreateUserResponse(){}
 
-    public CreateUserResponse(final User user, OAuth2AccessToken oAuth2AccessToken) {
+    public CreateUserResponse(final ApiUser user, OAuth2AccessToken oAuth2AccessToken) {
         
         notNull(user, "Mandatory argument 'user' missing.");
         notNull(oAuth2AccessToken, "Mandatory argument 'oAuth2AccessToken' missing.");
-        this.apiUser = new ApiUser(user);
+        this.apiUser = user;
         this.oAuth2AccessToken = oAuth2AccessToken;
     }
 

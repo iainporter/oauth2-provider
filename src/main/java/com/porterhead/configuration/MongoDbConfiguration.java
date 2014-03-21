@@ -69,13 +69,6 @@ public class MongoDbConfiguration extends AbstractMongoConfiguration {
     @Override
     @Bean
     public MongoTemplate mongoTemplate() throws Exception {
-
-        LOG.info("Active Spring Profile [{}].", getContextProperty(SPRING_PROFILES_ACTIVE));
-        LOG.info("Using database host [{}].", getContextProperty(MONGO_DB_SERVER));
-        LOG.info("Using database port [{}].", getContextProperty(MONGO_DB_PORT));
-        LOG.info("Using database name [{}].", getContextProperty(MONGO_DB_NAME));
-        LOG.info("Using database logon [{}].", getContextProperty(MONGO_DB_LOGON));
-        LOG.info("Using database password [{}].", getContextProperty(MONGO_DB_PASSWORD));
         if (!StringUtils.isEmpty(mongoDbLogin)) {
             LOG.info("Configuring mongoTemplate with credentials.");
             MongoDbFactory mongoDbFactory = new SimpleMongoDbFactory(mongo(), mongoDBName, new UserCredentials(mongoDbLogin, mongoDbPassword));

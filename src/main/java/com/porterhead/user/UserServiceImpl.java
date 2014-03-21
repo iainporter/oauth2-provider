@@ -37,15 +37,13 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
 
     private Logger LOG = LoggerFactory.getLogger(UserService.class);
     private UserRepository userRepository;
-    private DefaultTokenServices tokenServices;
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UserServiceImpl(final UserRepository userRepository, Validator validator, DefaultTokenServices tokenServices,
+    public UserServiceImpl(final UserRepository userRepository, Validator validator,
                            PasswordEncoder passwordEncoder) {
         super(validator);
         this.userRepository = userRepository;
-        this.tokenServices = tokenServices;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -55,7 +53,7 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
     }
 
     @Transactional
-    public CreateUserResponse createUser(final CreateUserRequest createUserRequest, final Principal principal) {
+    public ApiUser createUser(final CreateUserRequest createUserRequest) {
 
         LOG.info("Validating user request.");
         validate(createUserRequest);
@@ -64,15 +62,8 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
             LOG.info("User does not already exist in the data store - creating a new user [{}].",
                     emailAddress);
             User newUser = insertNewUser(createUserRequest);
-            String hashedPassword = passwordEncoder.encode(createUserRequest.getPassword().getPassword());
-            UsernamePasswordAuthenticationToken userAuthentication = new UsernamePasswordAuthenticationToken(emailAddress,
-			hashedPassword, Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_USER.toString())));
-            DefaultAuthorizationRequest authorizationRequest = new DefaultAuthorizationRequest(principal.getName(), Arrays.asList("read", "write"));
-            authorizationRequest.setApproved(true);
-            OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(authorizationRequest, userAuthentication);
-            OAuth2AccessToken token = tokenServices.createAccessToken(oAuth2Authentication);
             LOG.debug("Created new user [{}].", newUser.getEmailAddress());
-            return new CreateUserResponse(newUser, token);
+            return new ApiUser(newUser);
         } else {
             LOG.info("Duplicate user located, exception raised with appropriate HTTP response code.");
             throw new DuplicateUserException();
