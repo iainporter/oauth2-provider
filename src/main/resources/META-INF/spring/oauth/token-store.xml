@@ -22,11 +22,11 @@
 
     <oauth:web-expression-handler id="oauthWebExpressionHandler"/>
 
-    <beans profile="dev, default">
+    <beans profile="dev">
         <bean id="tokenStore" class="org.springframework.security.oauth2.provider.token.InMemoryTokenStore"/>
     </beans>
 
-    <beans profile="local, stage, test, production">
+    <beans profile="default, local, stage, test, production">
         <bean id="tokenStore" class="com.porterhead.oauth2.OAuth2RepositoryTokenStore">
             <constructor-arg ref="OAuth2AccessTokenRepository"/>
             <constructor-arg ref="OAuth2RefreshTokenRepository"/>
