@@ -65,8 +65,4 @@ public class UserConfiguration {
         return new MeResource();
     }
 
-//    @Bean
-//    public UserAuthenticationProvider userAuthenticationProvider() {
-//        return new UserAuthenticationProvider(userService());
-//    }
 }
