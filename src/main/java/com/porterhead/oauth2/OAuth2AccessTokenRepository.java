@@ -1,6 +1,7 @@
 package com.porterhead.oauth2;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @author: Iain Porter
  * @since 22/05/2013
  */
+@Repository
 public interface OAuth2AccessTokenRepository extends MongoRepository<OAuth2AuthenticationAccessToken, String> {
 
     public OAuth2AuthenticationAccessToken findByTokenId(String tokenId);

@@ -15,7 +15,7 @@ import org.springframework.mail.javamail.JavaMailSender;
  * @since 14/05/2013
  */
 @Configuration
-@Profile({"default", "test", "dev", "stage"})
+@Profile({"default", "test", "dev", "stage", "local"})
 public class InMemoryMailServiceConfiguration {
 
     @Bean

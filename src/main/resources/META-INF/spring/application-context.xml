@@ -15,19 +15,6 @@
     <mvc:default-servlet-handler/>
     <mvc:annotation-driven />
 
-    <!--<bean id="propertyConfigurer"-->
-          <!--class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
-        <!--<property name="locations">-->
-            <!--<list>-->
-                <!--<value>classpath:properties/application.properties</value>-->
-                <!--<value>file:${PROPERTY_FILE_LOCATION}</value>-->
-            <!--</list>-->
-        <!--</property>-->
-        <!--<property name="ignoreResourceNotFound" value="true"/>-->
-        <!--<property name="searchSystemEnvironment" value="true"/>-->
-        <!--<property name="systemPropertiesModeName" value="SYSTEM_PROPERTIES_MODE_OVERRIDE"/>-->
-    <!--</bean>-->
-
     <context:component-scan base-package="com.porterhead.filter"/>
     <context:component-scan base-package="com.porterhead.configuration"/>
     <context:component-scan base-package="com.porterhead.resource"/>

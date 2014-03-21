@@ -27,9 +27,9 @@
     </beans>
 
     <beans profile="local, stage, test, production">
-        <bean id="tokenStore" class="com.anchorage.geo.oauth2.OAuth2RepositoryTokenStore">
-            <constructor-arg ref="oAuth2AccessTokenRepository"/>
-            <constructor-arg ref="oAuth2RefreshTokenRepository"/>
+        <bean id="tokenStore" class="com.porterhead.oauth2.OAuth2RepositoryTokenStore">
+            <constructor-arg ref="OAuth2AccessTokenRepository"/>
+            <constructor-arg ref="OAuth2RefreshTokenRepository"/>
         </bean>
     </beans>
 

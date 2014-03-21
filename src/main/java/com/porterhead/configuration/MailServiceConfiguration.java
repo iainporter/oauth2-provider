@@ -18,7 +18,7 @@ import java.util.Properties;
  * @since 14/05/2013
  */
 @Configuration
-@Profile({"local", "production"})
+@Profile({"production"})
 public class MailServiceConfiguration {
 
     @Value("${email.services.sender.host}")
