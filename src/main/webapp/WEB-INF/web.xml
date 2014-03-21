@@ -16,10 +16,6 @@
     <servlet>
         <servlet-name>jersey-servlet</servlet-name>
         <servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
-        <!--<init-param>-->
-            <!--<param-name>contextConfigLocation</param-name>-->
-            <!--<param-value>/WEB-INF/spring/appservlet/servlet-context.xml</param-value>-->
-        <!--</init-param>-->
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>com.porterhead.resource</param-value>
@@ -32,10 +28,6 @@
             <param-name>com.sun.jersey.config.property.JSPTemplatesBasePath</param-name>
             <param-value>/WEB-INF/jsp</param-value>
         </init-param>
-        <!--<init-param>-->
-        <!--<param-name>com.sun.jersey.spi.container.ResourceFilters</param-name>-->
-        <!--<param-value>com.porterhead.filter.ResourceFilterFactory</param-value>-->
-        <!--</init-param>-->
         <init-param>
             <param-name>com.sun.jersey.config.property.WebPageContentRegex</param-name>
             <param-value>/(.*\.jsp|.*\.css|.*\.png|.*\.js|.*\.gif|.*\.jpg|.*\.pdf|.*\.html|(WEB-INF/jsp))</param-value>
@@ -52,6 +44,7 @@
         </init-param>
     </filter>
 
+    <!-- Set up Spring security filter chain -->
     <filter>
         <filter-name>springSecurityFilterChain</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -61,6 +54,7 @@
         </init-param>
     </filter>
 
+    <!-- bypass all other filters for static content-->
     <filter>
         <filter-name>static-filter</filter-name>
         <filter-class>com.porterhead.filter.StaticContentFilter</filter-class>
@@ -85,6 +79,7 @@
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
 
+    <!-- The Spring Security servlet-->
     <servlet>
         <servlet-name>spring</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>

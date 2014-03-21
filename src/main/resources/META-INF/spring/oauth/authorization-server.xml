@@ -42,7 +42,6 @@
 
     <bean id="clientAuthenticationEntryPoint"
           class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
-        <property name="realmName" value="geo1/client"/>
         <property name="typeName" value="Basic"/>
     </bean>
 
