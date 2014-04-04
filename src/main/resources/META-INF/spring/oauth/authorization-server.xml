@@ -30,7 +30,7 @@
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
     </http>
 
-    <http pattern="/v1.0/user" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
+    <http pattern="/v1.0/users" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
           xmlns="http://www.springframework.org/schema/security">
         <intercept-url pattern="/v1.0/user" method="POST" access="IS_AUTHENTICATED_FULLY"/>
         <anonymous enabled="false"/>

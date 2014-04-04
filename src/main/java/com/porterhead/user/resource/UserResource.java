@@ -26,13 +26,12 @@ import java.net.URI;
 import java.util.Arrays;
 import java.util.Collections;
 
-@Path("/v1.0/user")
+@Path("/v1.0/users")
 @Component
 @Produces({MediaType.APPLICATION_JSON})
 @Consumes({MediaType.APPLICATION_JSON})
 public class UserResource extends BaseResource {
 
-    private final static String USER_PATH = "v1.0/user/";
     @Context
     private UriInfo uriInfo;
     private UserService userService;

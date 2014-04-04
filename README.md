@@ -12,7 +12,7 @@ To register a new user:
  curl -X POST -H "Content-Type: application/json" \
  -H "Authorization: Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=" \
   -d '{"user":{"emailAddress":"test@example.com"}, "password":"password"}' \
-  'http://localhost:8080/oauth2-provider/v1.0/user'
+  'http://localhost:8080/oauth2-provider/v1.0/users'
 
 Login:
 

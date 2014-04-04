@@ -14,7 +14,7 @@ oauth2.user.create = function (firstName, emailAddress, password, lastName, call
 
 
   oauth2.postClientAuth(
-    'v1.0/user',
+    'v1.0/users',
     {user :
       {
         "firstName" : firstName,
@@ -191,7 +191,7 @@ oauth2.user.send_reset_email = function (email, callback) {
 oauth2.user.updateName = function (value, callback) {
 
   oauth2.put(
-    'v1.0/user/' + oauth2.cookie.get('userId'),
+    'v1.0/users/' + oauth2.cookie.get('userId'),
       {
       "emailAddress" : oauth2.cookie.get('email'),
       "firstName" : value

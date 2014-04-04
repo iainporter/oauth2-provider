@@ -5,7 +5,7 @@ import groovyx.net.http.RESTClient
 class BaseIntegrationTst extends GroovyTestCase {
 
     private def BASE_URL = "http://localhost:8080/oauth2-provider/"
-    protected def USER_PATH = "v1.0/user"
+    protected def USER_PATH = "v1.0/users"
     protected def ME_PATH = "v1.0/me"
     private def OAUTH_TOKEN_PATH = "oauth/token"
     private def restClient;
