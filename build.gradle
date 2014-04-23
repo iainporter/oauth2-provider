@@ -4,7 +4,6 @@ apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'war'
 apply plugin: 'tomcat'
-apply plugin: 'groovy'
 apply plugin: 'jetty'
 apply plugin: 'mongo'
 
@@ -113,7 +112,7 @@ dependencies {
         exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
     }
 
-    groovy "org.codehaus.groovy:groovy-all:2.0.0"
+    testCompile "org.codehaus.groovy:groovy-all:2.0.0"
 
     emma "emma:emma:2.1.5320"
     emma "emma:emma_ant:2.1.5320"
