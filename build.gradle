@@ -6,6 +6,7 @@ apply plugin: 'war'
 apply plugin: 'tomcat'
 apply plugin: 'jetty'
 apply plugin: 'mongo'
+apply plugin: 'groovy'
 
 group = 'com.porterhead.oauth2.provider'
 version = '1.0.SNAPSHOT'

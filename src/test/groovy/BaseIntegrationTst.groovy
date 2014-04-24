@@ -43,7 +43,7 @@ class BaseIntegrationTst extends GroovyTestCase {
     }
 
     protected String getCreateUserRequest(String username, String password) {
-        return "{\"user\":{" + getJsonNameValue("emailAddress", username) + "," + getJsonNameValue("gender", "male") + "}," + getJsonNameValue("password", password) + "}"
+        return "{\"user\":{" + getJsonNameValue("emailAddress", username) + "}," + getJsonNameValue("password", password) + "}"
     }
 
     protected Object httpGetUser(def authToken, def userId) {

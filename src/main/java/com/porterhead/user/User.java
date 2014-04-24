@@ -22,7 +22,6 @@ public class User extends BaseEntity implements UserDetails {
     private String firstName;
     private String lastName;
     private Integer age;
-    private Gender gender;
     private String hashedPassword;
     private Boolean verified = false;
     private List<Role> roles = new ArrayList<Role>();
@@ -42,7 +41,6 @@ public class User extends BaseEntity implements UserDetails {
         this.firstName = apiUser.getFirstName();
         this.lastName = apiUser.getLastName();
         this.age = apiUser.getAge();
-        this.gender = apiUser.getGender();
         this.roles.add(role);
     }
 
@@ -133,14 +131,6 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     public Boolean isVerified() {

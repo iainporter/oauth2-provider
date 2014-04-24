@@ -20,7 +20,6 @@ public class ApiUser implements Principal {
     private String firstName;
     private String lastName;
     private Integer age;
-    private Gender gender;
     private String id;
 
     public ApiUser() {
@@ -77,14 +76,6 @@ public class ApiUser implements Principal {
 
     public void setAge(Integer age) {
         this.age = age;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public void setGender(Gender gender) {
-        this.gender = gender;
     }
 
     @Override

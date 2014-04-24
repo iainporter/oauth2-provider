@@ -27,7 +27,6 @@ class SignUp {
         return "{\"user\":{"  \
           + getJsonNameValue("emailAddress", username)  \
            + ","  \
-            + getJsonNameValue("gender", "male") + "},"  \
              + getJsonNameValue("password", password) + "}"
     }
 
