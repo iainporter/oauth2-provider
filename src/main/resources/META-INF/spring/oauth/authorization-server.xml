@@ -13,8 +13,7 @@
 					  http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- List of flows that we support -->
-    <oauth:authorization-server client-details-service-ref="client-details-service" token-services-ref="tokenServices" authorization-endpoint-url="/authorize"
-                                token-endpoint-url="/token">
+    <oauth:authorization-server client-details-service-ref="client-details-service" token-services-ref="tokenServices">
         <oauth:refresh-token/>
         <oauth:password/>
     </oauth:authorization-server>
@@ -22,21 +21,16 @@
     <!-- The token endpoint See org.springframework.security.oauth2.provider.endpoint.TokenEndpoint-->
     <http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
           xmlns="http://www.springframework.org/schema/security">
-        <intercept-url pattern="/oauth/token" access="IS_AUTHENTICATED_FULLY"/>
         <anonymous enabled="false"/>
         <http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
-        <!-- include this only if you need to authenticate clients via request parameters -->
-        <custom-filter ref="clientCredentialsTokenEndpointFilter" after="BASIC_AUTH_FILTER"/>
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
     </http>
 
     <http pattern="/v1.0/users" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
           xmlns="http://www.springframework.org/schema/security">
-        <intercept-url pattern="/v1.0/user" method="POST" access="IS_AUTHENTICATED_FULLY"/>
+        <intercept-url pattern="/v1.0/users" method="POST" access="IS_AUTHENTICATED_FULLY"/>
         <anonymous enabled="false"/>
         <http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
-        <!-- include this only if you need to authenticate clients via request parameters -->
-        <custom-filter ref="clientCredentialsTokenEndpointFilter" after="BASIC_AUTH_FILTER"/>
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
     </http>
 
@@ -57,12 +51,12 @@
         </constructor-arg>
     </bean>
 
-    <oauth:resource-server id="resourceServerFilter" resource-id="geo1-mobile" token-services-ref="tokenServices"/>
+    <oauth:resource-server id="resourceServerFilter" resource-id="test" token-services-ref="tokenServices"/>
 
 
     <bean id="oauthAuthenticationEntryPoint"
           class="org.springframework.security.oauth2.provider.error.OAuth2AuthenticationEntryPoint">
-        <property name="realmName" value="geo1"/>
+        <property name="realmName" value="test"/>
     </bean>
 
     <!-- REST API Endpoints -->

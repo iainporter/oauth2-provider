@@ -22,7 +22,6 @@
                 secret="286924697e615a672a646a493545646c"
                 authorized-grant-types="password,refresh_token"
                 authorities="ROLE_TEST"
-                resource-ids="user"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
                 />
@@ -33,7 +32,6 @@
                 secret="655f523128212d6e70634446224c2a48"
                 authorized-grant-types="password,refresh_token"
                 authorities="ROLE_WEB"
-                resource-ids="user"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
                 />
@@ -44,7 +42,6 @@
                 secret="316457735c4055642744596b302e2151"
                 authorized-grant-types="password,refresh_token"
                 authorities="ROLE_IOS"
-                resource-ids="user"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
                 />
@@ -55,7 +52,6 @@
                 secret="4770414c283a20347c7b553650425773"
                 authorized-grant-types="password,refresh_token"
                 authorities="ROLE_ANDROID"
-                resource-ids="user"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
                 />

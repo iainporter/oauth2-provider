@@ -48,7 +48,7 @@ oauth2.clientAuth = function (clientId, secret) {
 oauth2.user.download = function (callback) {
 
   oauth2.get(
-    'v1.0/me,
+    'v1.0/me',
     {},
     function (response) {
       console.log(response)

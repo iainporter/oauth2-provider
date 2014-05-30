@@ -100,7 +100,7 @@ oauth2.postAuth = function (url, data, success, error) {
  */
 oauth2.postClientAuth = function (url, data, success, error) {
 
-    var authorization = 'Basic ' + CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse('353b302c44574f565045687e534e7d6a' + ':' + '286924697e615a672a646a493545646c'));
+    var authorization = CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse('353b302c44574f565045687e534e7d6a' + ':' + '286924697e615a672a646a493545646c'));
 
   $.ajax({
     url: url,
@@ -123,14 +123,14 @@ oauth2.postClientAuth = function (url, data, success, error) {
  */
 oauth2.login = function (url, data, success, error) {
 
-  var authorization = 'Basic ' + CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse('353b302c44574f565045687e534e7d6a' + ':' + '286924697e615a672a646a493545646c'));
+  var authorization =  CryptoJS.enc.Base64.stringify(CryptoJS.enc.Utf8.parse('353b302c44574f565045687e534e7d6a' + ':' + '286924697e615a672a646a493545646c'));
   $.ajax({
     url: url,
     type: "POST",
     accept: "application/json",
     data: data,
     headers: {
-      'Authorization' : authorization
+      'Authorization' :'Basic ' + authorization
     },
     dataType: "json",
     success : success,

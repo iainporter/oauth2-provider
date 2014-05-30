@@ -92,7 +92,7 @@
 
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
-        <url-pattern>/oauth/*</url-pattern>
+        <url-pattern>/oauth/token</url-pattern>
     </servlet-mapping>
 
     <filter-mapping>

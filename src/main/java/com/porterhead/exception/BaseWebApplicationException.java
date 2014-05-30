@@ -27,6 +27,11 @@ public abstract class BaseWebApplicationException extends WebApplicationExceptio
         return Response.status(status).type(MediaType.APPLICATION_JSON_TYPE).entity(getErrorResponse()).build();
     }
 
+    @Override
+    public String getMessage() {
+        return errorMessage;
+    }
+
     public ErrorResponse getErrorResponse() {
         ErrorResponse response = new ErrorResponse();
         response.setApplicationMessage(developerMessage);

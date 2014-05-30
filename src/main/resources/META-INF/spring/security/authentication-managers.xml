@@ -15,9 +15,9 @@
     <bean id="passwordEncoder" class="org.springframework.security.crypto.password.StandardPasswordEncoder"/>
 
     <sec:authentication-manager alias="userAuthenticationManager">
-    <sec:authentication-provider user-service-ref="userService">
-        <sec:password-encoder ref="passwordEncoder"/>
-    </sec:authentication-provider>
+        <sec:authentication-provider user-service-ref="userService">
+            <sec:password-encoder ref="passwordEncoder"/>
+        </sec:authentication-provider>
     </sec:authentication-manager>
 
 
