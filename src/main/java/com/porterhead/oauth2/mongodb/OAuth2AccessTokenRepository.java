@@ -1,5 +1,6 @@
-package com.porterhead.oauth2;
+package com.porterhead.oauth2.mongodb;
 
+import com.porterhead.oauth2.OAuth2AuthenticationAccessToken;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 

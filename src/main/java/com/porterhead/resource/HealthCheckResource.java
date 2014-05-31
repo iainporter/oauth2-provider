@@ -13,7 +13,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 
-@Path("/healthCheck")
+@Path("v1.0/healthcheck")
 @Component
 @Produces({MediaType.TEXT_PLAIN})
 public class HealthCheckResource {

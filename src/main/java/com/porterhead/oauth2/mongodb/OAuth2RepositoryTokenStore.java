@@ -1,5 +1,9 @@
-package com.porterhead.oauth2;
+package com.porterhead.oauth2.mongodb;
 
+import com.porterhead.oauth2.OAuth2AuthenticationAccessToken;
+import com.porterhead.oauth2.OAuth2AuthenticationRefreshToken;
+import com.porterhead.oauth2.mongodb.OAuth2AccessTokenRepository;
+import com.porterhead.oauth2.mongodb.OAuth2RefreshTokenRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
 import org.springframework.security.oauth2.common.OAuth2RefreshToken;

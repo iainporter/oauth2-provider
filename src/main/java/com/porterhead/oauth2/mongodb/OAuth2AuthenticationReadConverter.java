@@ -1,4 +1,4 @@
-package com.porterhead.oauth2;
+package com.porterhead.oauth2.mongodb;
 
 import com.porterhead.user.User;
 import com.mongodb.DBObject;

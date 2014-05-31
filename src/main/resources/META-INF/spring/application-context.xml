@@ -20,8 +20,10 @@
     <context:component-scan base-package="com.porterhead.resource"/>
     <context:component-scan base-package="com.porterhead.user"/>
 
+    <import resource="classpath:META-INF/spring/security/security-configuration.xml"/>
     <import resource="classpath:META-INF/spring/security/authentication-managers.xml"/>
-    <import resource="classpath:META-INF/spring/oauth/authorization-server.xml"/>
+    <import resource="classpath:META-INF/spring/security/endpoint-configuration.xml"/>
+    <import resource="classpath:META-INF/spring/oauth/oauth2-configuration.xml"/>
     <import resource="classpath:META-INF/spring/oauth/token-store.xml"/>
     <import resource="classpath:META-INF/spring/oauth/client-details.xml"/>
 

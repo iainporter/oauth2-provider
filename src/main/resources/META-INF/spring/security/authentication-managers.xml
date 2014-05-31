@@ -2,13 +2,12 @@
 
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
        xmlns:sec="http://www.springframework.org/schema/security"
 
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                       http://www.springframework.org/schema/beans/spring-beans.xsd
-					  http://www.springframework.org/schema/security/oauth2
-					  http://www.springframework.org/schema/security/spring-security-oauth2.xsd
+
+
 					  http://www.springframework.org/schema/security
 					  http://www.springframework.org/schema/security/spring-security-3.1.xsd">
 
@@ -20,5 +19,13 @@
         </sec:authentication-provider>
     </sec:authentication-manager>
 
+    <sec:authentication-manager id="clientAuthenticationManager" xmlns="http://www.springframework.org/schema/security">
+        <sec:authentication-provider user-service-ref="client-details-user-service"/>
+    </sec:authentication-manager>
+
+
+    <bean id="client-details-user-service" class="org.springframework.security.oauth2.provider.client.ClientDetailsUserDetailsService">
+        <constructor-arg ref="client-details-service" />
+    </bean>
 
 </beans>

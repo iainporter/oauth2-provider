@@ -1,8 +1,8 @@
 package com.porterhead.configuration;
 
-import com.porterhead.oauth2.OAuth2AccessTokenRepository;
-import com.porterhead.oauth2.OAuth2AuthenticationReadConverter;
-import com.porterhead.oauth2.OAuth2RefreshTokenRepository;
+import com.porterhead.oauth2.mongodb.OAuth2AccessTokenRepository;
+import com.porterhead.oauth2.mongodb.OAuth2AuthenticationReadConverter;
+import com.porterhead.oauth2.mongodb.OAuth2RefreshTokenRepository;
 import com.porterhead.user.UserRepository;
 import com.mongodb.Mongo;
 import org.slf4j.Logger;
