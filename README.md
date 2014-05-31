@@ -1,5 +1,6 @@
 A sample OAuth provider using spring security
-Note. It is still work in progress
+See <a href="http://porterhead.blogspot.co.uk/2014/05/securing-rest-services-with-spring.html">http://porterhead.blogspot.co.uk/2014/05/securing-rest-services-with-spring.html</a>
+
 
 prerequisites: a running mongoDB instance on port 27017
 
@@ -25,6 +26,6 @@ to retrieve a user details:
 
 curl -v -X GET \
 -H "Content-Type: application/json" \
--H "Authorization: Bearer d4082ea4-a4d3-4017-852b-e2debaf8e9e4" \
+-H "Authorization: Bearer [your access token]" \
 'http://localhost:8080/oauth2-provider/v1.0/me'
 
