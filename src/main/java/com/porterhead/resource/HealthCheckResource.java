@@ -18,12 +18,13 @@ import javax.ws.rs.core.Response;
 @Produces({MediaType.TEXT_PLAIN})
 public class HealthCheckResource {
 
-    @Autowired
-    Environment env;
+    @Value("${application.version}")
+    String version;
+
 
     @PermitAll
     @GET
     public Response ping() {
-        return Response.ok().entity("Running version " + env.getProperty("application.version")).build();
+        return Response.ok().entity("Running version " + version).build();
     }
 }
