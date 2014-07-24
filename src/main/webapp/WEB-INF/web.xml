@@ -32,6 +32,10 @@
             <param-name>com.sun.jersey.config.property.WebPageContentRegex</param-name>
             <param-value>/(.*\.jsp|.*\.css|.*\.png|.*\.js|.*\.gif|.*\.jpg|.*\.pdf|.*\.html|(WEB-INF/jsp))</param-value>
         </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>com.porterhead.filter.CrossOriginResourceSharingFilter</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
