@@ -2,18 +2,16 @@
  * This filter provides CORS support allowing resources to be requested from other domains
  * This is important if your client and your server do not reside on the same server or are running on different ports
  */
-package com.porterhead.filter;
+package com.porterhead.filter.jersey;
 
 
 import com.sun.jersey.spi.container.ContainerRequest;
 import com.sun.jersey.spi.container.ContainerResponse;
 import com.sun.jersey.spi.container.ContainerResponseFilter;
-import org.springframework.stereotype.Component;
 
 import javax.ws.rs.ext.Provider;
 
 @Provider
-@Component
 public class CrossOriginResourceSharingFilter implements ContainerResponseFilter {
 
     @Override
