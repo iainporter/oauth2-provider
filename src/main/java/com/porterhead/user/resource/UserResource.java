@@ -10,11 +10,12 @@ import com.porterhead.user.api.CreateUserRequest;
 import com.porterhead.user.api.CreateUserResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.DefaultAuthorizationRequest;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
+import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,9 @@ import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import java.io.Serializable;
 import java.net.URI;
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.*;
 
 @Path("/v1.0/users")
 @Component
@@ -32,8 +33,7 @@ import java.util.Collections;
 @Consumes({MediaType.APPLICATION_JSON})
 public class UserResource extends BaseResource {
 
-    @Context
-    private UriInfo uriInfo;
+
     private UserService userService;
     private VerificationTokenService verificationTokenService;
     private DefaultTokenServices tokenServices;
@@ -53,7 +53,7 @@ public class UserResource extends BaseResource {
 
     @PermitAll
     @POST
-    public Response signupUser(final CreateUserRequest request, @Context SecurityContext sc) {
+    public Response signupUser(final CreateUserRequest request, @Context SecurityContext sc, @Context UriInfo uriInfo) {
         ApiUser user = userService.createUser(request);
         CreateUserResponse createUserResponse = new CreateUserResponse(user, createTokenForNewUser(
                 request, sc.getUserPrincipal().getName()));
@@ -76,10 +76,19 @@ public class UserResource extends BaseResource {
         UsernamePasswordAuthenticationToken userAuthentication = new UsernamePasswordAuthenticationToken(
                 createUserRequest.getUser().getEmailAddress(),
                 hashedPassword, Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_USER.toString())));
-        DefaultAuthorizationRequest authorizationRequest = new DefaultAuthorizationRequest(clientId, Arrays.asList("read", "write"));
-        authorizationRequest.setApproved(true);
-        OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(authorizationRequest, userAuthentication);
+        OAuth2Request oAuth2Request = createOAuth2Request(null, clientId,
+                Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_USER.toString())),
+                true, Arrays.asList("read", "write"), null, null, null, null);
+        OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, userAuthentication);
         return tokenServices.createAccessToken(oAuth2Authentication);
+    }
+
+    private OAuth2Request createOAuth2Request(Map<String, String> requestParameters, String clientId,
+                                              Collection<? extends GrantedAuthority> authorities, boolean approved, Collection<String> scope,
+                                              Set<String> resourceIds, String redirectUri, Set<String> responseTypes,
+                                              Map<String, Serializable> extensionProperties) {
+        return new OAuth2Request(requestParameters, clientId, authorities, approved, scope == null ? null
+                : new LinkedHashSet<String>(scope), resourceIds, redirectUri, responseTypes, extensionProperties);
     }
 
 }

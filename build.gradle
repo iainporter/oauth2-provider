@@ -33,14 +33,15 @@ configurations {
 
 
 ext {
-    springFrameworkVersion = "3.2.9.RELEASE"
-    springDataVersion = "1.4.0.RELEASE"
-    springDataMongoDBVersion = "1.4.0.RELEASE"
-    springSecurityOauth2Version = "1.0.5.RELEASE"
+    springFrameworkVersion = "4.0.5.RELEASE"
+    springDataVersion = "1.6.1.RELEASE"
+    springDataMongoDBVersion = "1.5.1.RELEASE"
+    springSecurityOauth2Version = "2.0.2.RELEASE"
+    springIntegrationVersion = "4.0.2.RELEASE"
     tomcatVersion = '7.0.11'
-    springSecurityVersion = "3.1.4.RELEASE"
-    jerseyVersion = "1.9.1"
-    jacksonVersion = "1.9.3"
+    springSecurityVersion = "3.2.4.RELEASE"
+    jerseyVersion = "2.11"
+    jacksonVersion = "1.9.13"
 
 }
 
@@ -62,20 +63,25 @@ dependencies {
     compile "org.springframework.security:spring-security-core:${springSecurityVersion}"
     compile "org.springframework.data:spring-data-jpa:${springDataVersion}"
     compile "org.springframework.data:spring-data-mongodb:${springDataMongoDBVersion}"
-    compile "org.springframework.integration:spring-integration-core:2.2.6.RELEASE"
-    compile "org.springframework.integration:spring-integration-mail:2.2.6.RELEASE"
-    compile "javax.ws.rs:jsr311-api:1.1.1"
-    compile "javax.annotation:jsr250-api:1.0"
+    compile "org.springframework.integration:spring-integration-core:${springIntegrationVersion}"
+    compile "org.springframework.integration:spring-integration-mail:${springIntegrationVersion}"
     compile "org.hibernate:hibernate-validator:5.1.0.Final"
     compile "javax.el:javax.el-api:2.2.5"
     compile "org.glassfish.web:javax.el:2.2.5"
     compile "javax.mail:mail:1.4.3"
     compile "org.apache.velocity:velocity:1.7"
     compile "joda-time:joda-time:2.3"
-    compile "com.sun.jersey:jersey-core:${jerseyVersion}"
-    compile "com.sun.jersey:jersey-server:${jerseyVersion}"
-    compile "com.sun.jersey:jersey-json:${jerseyVersion}"
-    compile "com.sun.jersey.contribs:jersey-spring:${jerseyVersion}"
+
+    compile ("org.glassfish.jersey.ext:jersey-spring3:${jerseyVersion}") {
+        exclude group: "org.springframework", module: "spring-core"
+        exclude group: "org.springframework", module: "spring-web"
+        exclude group: "org.springframework", module: "spring-beans"
+    }
+
+    compile "org.glassfish.jersey.core:jersey-server:${jerseyVersion}"
+    compile "org.glassfish.jersey.core:jersey-common:${jerseyVersion}"
+    compile "org.glassfish.jersey.media:jersey-media-json-jackson:${jerseyVersion}"
+
     compile "org.codehaus.jackson:jackson-core-asl:$jacksonVersion"
     compile "org.codehaus.jackson:jackson-mapper-asl:$jacksonVersion"
     compile "org.codehaus.jackson:jackson-xc:$jacksonVersion"
@@ -91,10 +97,10 @@ dependencies {
     testCompile "org.springframework:spring-test:$springFrameworkVersion",
             //"org.codehaus.groovy.modules.http-builder:http-builder:0.5.2",
             //"org.codehaus.groovy:groovy-all:$groovyVersion",
-            "com.sun.jersey:jersey-test-framework:$jerseyVersion",
-            "com.sun.jersey.jersey-test-framework:jersey-test-framework-grizzly2:$jerseyVersion",
-            "com.sun.jersey.jersey-test-framework:jersey-test-framework-core:$jerseyVersion",
-            "com.sun.jersey:jersey-grizzly2:$jerseyVersion",
+//            "com.sun.jersey:jersey-test-framework:$jerseyVersion",
+//            "com.sun.jersey.jersey-test-framework:jersey-test-framework-grizzly2:$jerseyVersion",
+//            "com.sun.jersey.jersey-test-framework:jersey-test-framework-core:$jerseyVersion",
+//            "com.sun.jersey:jersey-grizzly2:$jerseyVersion",
             "org.glassfish.grizzly:grizzly-http:2.1.2",
             "org.glassfish.gmbal:gmbal-api-only:3.0.0-b023",
             "org.glassfish.external:management-api:3.0.0-b012",
@@ -102,7 +108,7 @@ dependencies {
             "org.glassfish.grizzly:grizzly-rcm:2.1.2",
             "org.glassfish.grizzly:grizzly-http-servlet:2.1.2",
             "org.glassfish:javax.servlet:3.1",
-            "com.sun.jersey:jersey-client:$jerseyVersion",
+            "org.glassfish.jersey.core:jersey-client:$jerseyVersion",
     testCompile("org.codehaus.groovy.modules.http-builder:http-builder:0.5.2") {
         exclude group: 'org.codehaus.groovy'
     }

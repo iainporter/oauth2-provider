@@ -3,30 +3,20 @@ package com.porterhead.user;
 import com.porterhead.service.BaseService;
 import com.porterhead.user.api.ApiUser;
 import com.porterhead.user.api.CreateUserRequest;
-import com.porterhead.user.api.CreateUserResponse;
 import com.porterhead.user.exception.AuthenticationException;
 import com.porterhead.user.exception.DuplicateUserException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.oauth2.common.OAuth2AccessToken;
-import org.springframework.security.oauth2.provider.DefaultAuthorizationRequest;
-import org.springframework.security.oauth2.provider.OAuth2Authentication;
-import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import javax.validation.Validator;
-import java.security.Principal;
-import java.util.Arrays;
-import java.util.Collections;
 
 import static org.springframework.util.Assert.notNull;
 

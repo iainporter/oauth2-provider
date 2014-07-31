@@ -24,6 +24,7 @@
                 authorities="ROLE_TEST"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
+                scope="read, write"
                 />
 
         <!-- Web Application clients -->
@@ -34,6 +35,7 @@
                 authorities="ROLE_WEB"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
+                scope="read, write"
                 />
 
         <!-- iOS clients -->
@@ -44,6 +46,7 @@
                 authorities="ROLE_IOS"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
+                scope="read, write"
                 />
 
         <!-- Android clients -->
@@ -54,6 +57,7 @@
                 authorities="ROLE_ANDROID"
                 access-token-validity="${oauth.token.access.expiresInSeconds}"
                 refresh-token-validity="${oauth.token.refresh.expiresInSeconds}"
+                scope="read, write"
                 />
 
     </oauth:client-details-service>

@@ -103,14 +103,14 @@ public class OAuth2RepositoryTokenStore implements TokenStore {
     }
 
     @Override
-    public Collection<OAuth2AccessToken> findTokensByUserName(String userName) {
-        List<OAuth2AuthenticationAccessToken> tokens = oAuth2AccessTokenRepository.findByUserName(userName.toLowerCase());
+    public Collection<OAuth2AccessToken> findTokensByClientId(String clientId) {
+        List<OAuth2AuthenticationAccessToken> tokens = oAuth2AccessTokenRepository.findByClientId(clientId);
         return extractAccessTokens(tokens);
     }
 
     @Override
-    public Collection<OAuth2AccessToken> findTokensByClientId(String clientId) {
-        List<OAuth2AuthenticationAccessToken> tokens = oAuth2AccessTokenRepository.findByClientId(clientId);
+    public Collection<OAuth2AccessToken> findTokensByClientIdAndUserName(String clientId, String userName) {
+        List<OAuth2AuthenticationAccessToken> tokens = oAuth2AccessTokenRepository.findByClientIdAndUserName(clientId, userName);
         return extractAccessTokens(tokens);
     }
 

@@ -14,9 +14,9 @@ class UserIntegrationTest extends BaseIntegrationTst {
     public void testInvalidRequest() {
         try {
             httpSignUpUser(getNoRootUserRequest(createRandomUserName(), TEST_PASSWORD))
-            fail("Expected 500 response")
+            fail("Expected 400 response")
         } catch (Exception e) {
-            assertEquals(500, e.response.status)
+            assertEquals(400, e.response.status)
         }
     }
 

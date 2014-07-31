@@ -27,7 +27,7 @@ public class OAuth2AuthenticationAccessToken extends BaseEntity {
         this.oAuth2AccessToken = oAuth2AccessToken;
         this.authenticationId = authenticationId;
         this.userName = authentication.getName();
-        this.clientId = authentication.getAuthorizationRequest().getClientId();
+        this.clientId = authentication.getOAuth2Request().getClientId();
         this.authentication = authentication;
         this.refreshToken = oAuth2AccessToken.getRefreshToken().getValue();
     }
