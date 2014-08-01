@@ -175,6 +175,10 @@ dependencies {
 //        }
     }
 
+    task wrapper(type: Wrapper) {
+        gradleVersion = '2.0'
+    }
+
 
     [jettyRun, jettyRunWar, jettyStop]*.stopPort = 8081
     [jettyRun, jettyRunWar, jettyStop]*.stopKey = 'stopKey'
