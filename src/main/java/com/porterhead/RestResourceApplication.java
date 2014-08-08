@@ -1,12 +1,14 @@
 package com.porterhead;
 
-import com.porterhead.filter.jersey.CrossOriginResourceSharingFilter;
+import com.porterhead.filter.jersey.JerseyCrossOriginResourceSharingFilter;
 import com.porterhead.resource.GenericExceptionMapper;
-import com.porterhead.resource.HealthCheckResource;
-import com.porterhead.user.resource.UserResource;
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.glassfish.jersey.server.spring.scope.RequestContextFilter;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.context.ContextLoader;
+
+import javax.ws.rs.container.ContainerResponseFilter;
 
 /**
  * Created by iainporter on 28/07/2014.
@@ -18,7 +20,10 @@ public class RestResourceApplication extends ResourceConfig {
         packages("com.porterhead.resource", "com.porterhead.user.resource");
 
         register(RequestContextFilter.class);
-        register(CrossOriginResourceSharingFilter.class);
+
+        ApplicationContext rootCtx = ContextLoader.getCurrentWebApplicationContext();
+        ContainerResponseFilter filter = rootCtx.getBean(JerseyCrossOriginResourceSharingFilter.class);
+        register(filter);
 
         register(GenericExceptionMapper.class);
 
