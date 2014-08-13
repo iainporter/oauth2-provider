@@ -2,9 +2,9 @@ package com.porterhead.user;
 
 import com.porterhead.exception.ValidationException;
 import com.porterhead.user.api.ApiUser;
-import com.porterhead.user.api.CreateUserResponse;
 import com.porterhead.user.api.CreateUserRequest;
 import com.porterhead.user.api.PasswordRequest;
+import com.porterhead.user.api.UpdateUserRequest;
 import com.porterhead.user.exception.AuthenticationException;
 import com.porterhead.user.exception.DuplicateUserException;
 import org.apache.commons.lang.RandomStringUtils;
@@ -17,6 +17,7 @@ import org.mockito.stubbing.Answer;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.Validation;
 import javax.validation.Validator;
@@ -25,8 +26,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.*;
-import static org.mockito.Mockito.mock;
 
+@Transactional
 public class UserServiceTest {
 
 

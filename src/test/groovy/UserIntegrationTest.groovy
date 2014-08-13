@@ -1,3 +1,13 @@
+import com.porterhead.user.api.ApiUser
+
+import static org.hamcrest.Matchers.is
+import static org.hamcrest.Matchers.is
+import static org.hamcrest.Matchers.is
+import static org.hamcrest.Matchers.is
+import static org.junit.Assert.assertThat
+import static org.junit.Assert.assertThat
+import static org.junit.Assert.assertThat
+import static org.junit.Assert.assertThat
 
 class UserIntegrationTest extends BaseIntegrationTst {
 
@@ -96,5 +106,21 @@ class UserIntegrationTest extends BaseIntegrationTst {
         def getUserResponse = httpGetMe(loginResponse.responseData["access_token"])
         assertEquals(200, getUserResponse.status)
         assertTrue(getUserResponse.responseData["emailAddress"].equals(username.toLowerCase()))
+    }
+
+    public void testUpdateUser() {
+        def username = createRandomUserName()
+        httpSignUpUser(getCreateUserRequest(username, TEST_PASSWORD))
+        def loginResponse = httpGetAuthToken(username, TEST_PASSWORD)
+        def getUserResponse = httpGetMe(loginResponse.responseData["access_token"])
+
+        def updateRequest = getUpdateUserRequest("FOO", "BAR", "foobar@example.com")
+        def updateUserResponse = httpUpdateUser(loginResponse.responseData["access_token"], getUserResponse.responseData["id"], updateRequest)
+        assertEquals(200, updateUserResponse.status)
+        getUserResponse = httpGetUser(loginResponse.responseData["access_token"], username)
+        assertEquals(200, getUserResponse.status)
+        assertThat(getUserResponse.responseData["firstName"], is("FOO"))
+        assertThat(getUserResponse.responseData["lastName"], is("BAR"))
+        assertThat(getUserResponse.responseData["emailAddress"], is("foobar@example.com"))
     }
 }

@@ -8,6 +8,7 @@ import com.porterhead.user.VerificationTokenService;
 import com.porterhead.user.api.ApiUser;
 import com.porterhead.user.api.CreateUserRequest;
 import com.porterhead.user.api.CreateUserResponse;
+import com.porterhead.user.api.UpdateUserRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
@@ -18,6 +19,7 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
@@ -68,7 +70,7 @@ public class UserResource extends BaseResource {
     @GET
     public ApiUser getUser(final @PathParam("id") String userId, final @Context SecurityContext securityContext) {
         User requestingUser = ensureUserIsAuthorized(securityContext, userId);
-        return new ApiUser(requestingUser);
+        return userService.getUser(requestingUser.getId());
     }
 
     private OAuth2AccessToken createTokenForNewUser(CreateUserRequest createUserRequest, String clientId) {
@@ -81,6 +83,21 @@ public class UserResource extends BaseResource {
                 true, Arrays.asList("read", "write"), null, null, null, null);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, userAuthentication);
         return tokenServices.createAccessToken(oAuth2Authentication);
+    }
+
+    @RolesAllowed({"ROLE_USER"})
+    @Path("{userId}")
+    @PUT
+    public Response updateUser(@Context SecurityContext sc, @PathParam("userId") String userId, UpdateUserRequest request) {
+        User requestingUser = ensureUserIsAuthorized(sc, userId);
+
+        boolean sendVerificationToken = StringUtils.hasLength(request.getEmailAddress()) &&
+                !request.getEmailAddress().equals(requestingUser.getEmailAddress());
+        ApiUser savedUser = userService.saveUser(userId, request);
+        if(sendVerificationToken) {
+            verificationTokenService.sendEmailVerificationToken(savedUser.getId());
+        }
+        return Response.ok().build();
     }
 
     private OAuth2Request createOAuth2Request(Map<String, String> requestParameters, String clientId,

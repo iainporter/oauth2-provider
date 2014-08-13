@@ -3,8 +3,10 @@ package com.porterhead.user;
 import com.porterhead.service.BaseService;
 import com.porterhead.user.api.ApiUser;
 import com.porterhead.user.api.CreateUserRequest;
+import com.porterhead.user.api.UpdateUserRequest;
 import com.porterhead.user.exception.AuthenticationException;
 import com.porterhead.user.exception.DuplicateUserException;
+import com.porterhead.user.exception.UserNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +73,39 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
         return new ApiUser(user);
     }
 
+    @Transactional
+    public ApiUser saveUser(String userId, UpdateUserRequest request) {
+        validate(request);
+        User user = userRepository.findById(userId);
+        if(user == null) {
+            throw new UserNotFoundException();
+        }
+        if(request.getFirstName() != null) {
+            user.setFirstName(request.getFirstName());
+        }
+        if(request.getLastName() != null) {
+            user.setLastName(request.getLastName());
+        }
+        if(request.getEmailAddress() != null) {
+            if(!request.getEmailAddress().equals(user.getEmailAddress())) {
+                user.setEmailAddress(request.getEmailAddress());
+                user.setVerified(false);
+            }
+        }
+        userRepository.save(user);
+        return new ApiUser(user);
+    }
+
+    @Override
+    public ApiUser getUser(String userId) {
+        Assert.notNull(userId);
+        User user = userRepository.findById(userId);
+        if(user == null) {
+            throw new UserNotFoundException();
+        }
+        return new ApiUser(user);
+    }
+
     /**
      * Locate the user and throw an exception if not found.
      *
@@ -93,5 +128,6 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
         User newUser = new User(createUserRequest.getUser(), hashedPassword, Role.ROLE_USER);
         return userRepository.save(newUser);
     }
+
 
 }

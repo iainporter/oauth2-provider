@@ -33,6 +33,10 @@ class BaseIntegrationTst extends GroovyTestCase {
         return RandomStringUtils.randomAlphabetic(8) + "@example.com";
     }
 
+    protected String getUpdateUserRequest(String firstName, String lastName, String emailAddress) {
+        return """{"firstName": """ + '\"' + firstName + '\"' + ""","lastName":""" + '\"' + lastName + '\"' + ""","emailAddress":""" + '\"' + emailAddress + '\"' + """}"""
+    }
+
     protected Object httpSignUpUser(def jsonPayload) {
         System.out.println("payload" + jsonPayload)
         return getRestClient().post(path: USER_PATH, contentType: ContentType.JSON, headers: ['Authorization': 'Basic ' + BASIC_AUTH_TOKEN], body: jsonPayload)
@@ -49,6 +53,11 @@ class BaseIntegrationTst extends GroovyTestCase {
     protected Object httpGetUser(def authToken, def userId) {
         def path = USER_PATH + "/" + userId
         return getRestClient().get(path: path, contentType: ContentType.JSON, headers: ['Authorization': "Bearer " + authToken])
+    }
+
+    protected Object httpUpdateUser(def authToken, def userId, def payload) {
+        def path = USER_PATH + "/" + userId
+        return getRestClient().put(path: path, contentType: ContentType.JSON, headers: ['Authorization': "Bearer " + authToken], body: payload)
     }
 
     protected Object httpGetMe(def authToken) {
