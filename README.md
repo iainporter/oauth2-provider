@@ -29,3 +29,14 @@ curl -v -X GET \
 -H "Authorization: Bearer [your access token]" \
 'http://localhost:8080/oauth2-provider/v1.0/me'
 
+To set up for production:
+
+1. Create a properties file in src/main/resources/properties called app-production.properties
+2. Override all relevant properties from src/main/resources/properties/application.properties
+3. Configure Mail Server by overriding values for mail server in app-production.properties
+4. Build and deploy war. Add System variable to start up command -Dspring.profiles.active=production
+5. Restrict access to all protected URLs via SSL only
+6. The velocity templates and html pages provided are basic and should be customised to your needs
+
+
+
