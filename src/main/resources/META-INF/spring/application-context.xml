@@ -19,6 +19,7 @@
     <context:component-scan base-package="com.porterhead.configuration"/>
     <context:component-scan base-package="com.porterhead.resource"/>
     <context:component-scan base-package="com.porterhead.user"/>
+    <context:component-scan base-package="com.porterhead.sample"/>
 
     <import resource="classpath:META-INF/spring/security/security-configuration.xml"/>
     <import resource="classpath:META-INF/spring/security/authentication-managers.xml"/>

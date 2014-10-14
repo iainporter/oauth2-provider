@@ -65,6 +65,10 @@ class BaseIntegrationTst extends GroovyTestCase {
         return getRestClient().get(path: ME_PATH, contentType: ContentType.JSON, headers: ['Authorization': "Bearer " + authToken])
     }
 
+    protected Object httpGetSample(def authToken) {
+        return getRestClient().get(path: "v1.0/samples", contentType: ContentType.JSON, headers: ['Authorization': "Bearer " + authToken])
+    }
+
     private String getJsonNameValue(String name, Object value) {
         return '\"' + name + '\":\"' + value + '\"'
     }

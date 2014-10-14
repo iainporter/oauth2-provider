@@ -18,6 +18,14 @@ public class ErrorResponse {
     private String applicationMessage;
     private List<ValidationError> validationErrors = new ArrayList<ValidationError>();
 
+    public ErrorResponse() {}
+
+    public ErrorResponse(String errorCode, String consumerMessage, String applicationMessage) {
+        this.errorCode = errorCode;
+        this.consumerMessage = consumerMessage;
+        this.applicationMessage = applicationMessage;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }

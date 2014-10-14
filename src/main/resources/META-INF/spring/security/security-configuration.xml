@@ -18,9 +18,24 @@
           xmlns="http://www.springframework.org/schema/beans">
         <property name="decisionVoters">
             <list>
-                <bean class="org.springframework.security.access.annotation.Jsr250Voter"/>
+                <ref bean="roleVoter"/>
             </list>
         </property>
+    </bean>
+
+    <bean id="roleHierarchy"
+          class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+        <property name="hierarchy">
+            <value>
+                ROLE_ADMIN > ROLE_PROVIDER
+                ROLE_PROVIDER > ROLE_USER
+                ROLE_USER > ROLE_GUEST
+            </value>
+        </property>
+    </bean>
+
+    <bean id="roleVoter" class="com.porterhead.security.HierarchicalJsr250Voter">
+        <constructor-arg ref="roleHierarchy" />
     </bean>
 
     <sec:global-method-security jsr250-annotations="enabled" access-decision-manager-ref="accessDecisionManager"/>

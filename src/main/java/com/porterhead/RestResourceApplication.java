@@ -1,5 +1,6 @@
 package com.porterhead;
 
+import com.porterhead.exception.AccessDeniedExceptionMapper;
 import com.porterhead.filter.jersey.JerseyCrossOriginResourceSharingFilter;
 import com.porterhead.resource.GenericExceptionMapper;
 import org.glassfish.jersey.jackson.JacksonFeature;
@@ -17,7 +18,8 @@ public class RestResourceApplication extends ResourceConfig {
 
     public RestResourceApplication() {
 
-        packages("com.porterhead.resource", "com.porterhead.user.resource");
+        packages("com.porterhead.resource", "com.porterhead.user.resource",
+        "com.porterhead.sample");
 
         register(RequestContextFilter.class);
 
@@ -26,6 +28,7 @@ public class RestResourceApplication extends ResourceConfig {
         register(filter);
 
         register(GenericExceptionMapper.class);
+        register(AccessDeniedExceptionMapper.class);
 
         register(JacksonFeature.class);
 
