@@ -47,21 +47,16 @@
 
     <bean id="corsFilter" class="com.porterhead.filter.spring.SpringCrossOriginResourceSharingFilter"/>
 
+    <bean id="oauthRestEntryPoint" class="com.porterhead.security.OAuthRestEntryPoint"/>
+
     <!-- The token endpoint See org.springframework.security.oauth2.provider.endpoint.TokenEndpoint-->
     <http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
           xmlns="http://www.springframework.org/schema/security">
         <anonymous enabled="false"/>
-        <http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
+        <http-basic entry-point-ref="oauthRestEntryPoint"/>
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
         <custom-filter ref="corsFilter" after="LAST"/>
     </http>
 
-    <http pattern="/oauth/check_token" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
-          xmlns="http://www.springframework.org/schema/security">
-        <anonymous enabled="false"/>
-        <http-basic entry-point-ref="clientAuthenticationEntryPoint"/>
-        <access-denied-handler ref="oauthAccessDeniedHandler"/>
-        <custom-filter ref="corsFilter" after="LAST"/>
-    </http>
 
 </beans>
