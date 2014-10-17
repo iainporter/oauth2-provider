@@ -35,6 +35,8 @@ To set up for production:
 2. Override all relevant properties from src/main/resources/properties/application.properties
 3. Configure Mail Server by overriding values for mail server in app-production.properties
 4. Build and deploy war. Add System variable to start up command -Dspring.profiles.active=production
+5. Add MongoDB args to start up command-  -DMONGODB_HOST=localhost -DMONGODB_PORT=27017
+Example command line args for using built-in tomcat instance:  ./gradlew tomcatRun -Dspring.profiles.active=production -DMONGODB_HOST=localhost -DMONGODB_PORT=27017
 5. Restrict access to all protected URLs via SSL only
 6. The velocity templates and html pages provided are basic and should be customised to your needs
 
