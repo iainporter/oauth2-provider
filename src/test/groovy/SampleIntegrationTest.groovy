@@ -12,6 +12,6 @@ class SampleIntegrationTest extends BaseIntegrationTst {
         //get the resource that requires a role of ROLE_GUEST
         def sampleResponse = httpGetSample(loginResponse.responseData["access_token"])
         assertEquals(200, sampleResponse.status)
-        assertTrue(sampleResponse.responseData["message"].equals("You are authorized to access"))
+        assertTrue(sampleResponse.responseData["message"].equals(username.toLowerCase() + " is authorized to access"))
     }
 }
