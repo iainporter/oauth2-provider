@@ -26,8 +26,8 @@ public class JerseyCrossOriginResourceSharingFilter extends BaseCORSFilter imple
             String origin = requestContext.getHeaders().getFirst("Origin");
             if(getAllowedOrigins(allowedOriginsString).contains(origin)) {
                 responseContext.getHeaders().add("Access-Control-Allow-Origin", origin);
-                responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-                responseContext.getHeaders().add("Access-Control-Allow-Headers", "X-HTTP-Method-Override, Content-Type, x-requested-with");
+                responseContext.getHeaders().add("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+                responseContext.getHeaders().add("Access-Control-Allow-Headers", "X-HTTP-Method-Override, Content-Type, x-requested-with, Authorization");
                 responseContext.getHeaders().add("Access-Control-Max-Age", "3600");
             }
         }
