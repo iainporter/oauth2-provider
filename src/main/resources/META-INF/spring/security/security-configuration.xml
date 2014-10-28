@@ -27,8 +27,7 @@
           class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
         <property name="hierarchy">
             <value>
-                ROLE_ADMIN > ROLE_PROVIDER
-                ROLE_PROVIDER > ROLE_USER
+                ROLE_ADMIN > ROLE_USER
                 ROLE_USER > ROLE_GUEST
             </value>
         </property>
