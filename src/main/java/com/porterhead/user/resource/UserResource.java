@@ -15,6 +15,8 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.common.OAuth2AccessToken;
+import org.springframework.security.oauth2.provider.ClientDetails;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.OAuth2Request;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -40,17 +42,19 @@ public class UserResource extends BaseResource {
     private VerificationTokenService verificationTokenService;
     private DefaultTokenServices tokenServices;
     private PasswordEncoder passwordEncoder;
+    private ClientDetailsService clientDetailsService;
 
     public UserResource(){}
 
     @Autowired
     public UserResource(final UserService userService, final VerificationTokenService verificationTokenService,
                         final DefaultTokenServices defaultTokenServices,
-                        final PasswordEncoder passwordEncoder) {
+                        final PasswordEncoder passwordEncoder, ClientDetailsService clientDetailsService) {
         this.userService = userService;
         this.verificationTokenService = verificationTokenService;
         this.tokenServices = defaultTokenServices;
         this.passwordEncoder = passwordEncoder;
+        this.clientDetailsService = clientDetailsService;
     }
 
     @PermitAll
@@ -58,7 +62,7 @@ public class UserResource extends BaseResource {
     public Response signupUser(final CreateUserRequest request, @Context SecurityContext sc, @Context UriInfo uriInfo) {
         ApiUser user = userService.createUser(request);
         CreateUserResponse createUserResponse = new CreateUserResponse(user, createTokenForNewUser(
-                request, sc.getUserPrincipal().getName()));
+                user.getId(), request.getPassword().getPassword(), sc.getUserPrincipal().getName()));
         verificationTokenService.sendEmailRegistrationToken(createUserResponse.getApiUser().getId());
         URI location = uriInfo.getAbsolutePathBuilder().path(createUserResponse.getApiUser().getId()).build();
         return Response.created(location).entity(createUserResponse).build();
@@ -73,14 +77,15 @@ public class UserResource extends BaseResource {
         return userService.getUser(requestingUser.getId());
     }
 
-    private OAuth2AccessToken createTokenForNewUser(CreateUserRequest createUserRequest, String clientId) {
-        String hashedPassword = passwordEncoder.encode(createUserRequest.getPassword().getPassword());
+    private OAuth2AccessToken createTokenForNewUser(String userId, String password, String clientId) {
+        String hashedPassword = passwordEncoder.encode(password);
         UsernamePasswordAuthenticationToken userAuthentication = new UsernamePasswordAuthenticationToken(
-                createUserRequest.getUser().getEmailAddress(),
+                userId,
                 hashedPassword, Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_USER.toString())));
+        ClientDetails authenticatedClient = clientDetailsService.loadClientByClientId(clientId);
         OAuth2Request oAuth2Request = createOAuth2Request(null, clientId,
                 Collections.singleton(new SimpleGrantedAuthority(Role.ROLE_USER.toString())),
-                true, Arrays.asList("read", "write"), null, null, null, null);
+                true, authenticatedClient.getScope(), null, null, null, null);
         OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, userAuthentication);
         return tokenServices.createAccessToken(oAuth2Authentication);
     }

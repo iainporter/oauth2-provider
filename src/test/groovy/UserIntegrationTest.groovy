@@ -117,10 +117,26 @@ class UserIntegrationTest extends BaseIntegrationTst {
         def updateRequest = getUpdateUserRequest("FOO", "BAR", "foobar@example.com")
         def updateUserResponse = httpUpdateUser(loginResponse.responseData["access_token"], getUserResponse.responseData["id"], updateRequest)
         assertEquals(200, updateUserResponse.status)
-        getUserResponse = httpGetUser(loginResponse.responseData["access_token"], username)
+        getUserResponse = httpGetUser(loginResponse.responseData["access_token"], getUserResponse.responseData["id"])
         assertEquals(200, getUserResponse.status)
         assertThat(getUserResponse.responseData["firstName"], is("FOO"))
         assertThat(getUserResponse.responseData["lastName"], is("BAR"))
         assertThat(getUserResponse.responseData["emailAddress"], is("foobar@example.com"))
+    }
+
+    public void testUpdateRefreshesMeResource() {
+        def username = createRandomUserName()
+        httpSignUpUser(getCreateUserRequest(username, TEST_PASSWORD))
+        def loginResponse = httpGetAuthToken(username, TEST_PASSWORD)
+        def getUserResponse = httpGetMe(loginResponse.responseData["access_token"])
+
+        def updateRequest = getUpdateUserRequest("FOO", "BAR", "foobar@example.com")
+        httpUpdateUser(loginResponse.responseData["access_token"], getUserResponse.responseData["id"], updateRequest)
+        def getMeResponse = httpGetMe(loginResponse.responseData["access_token"])
+        assertTrue(getMeResponse.responseData["emailAddress"].equals("foobar@example.com"))
+        assertTrue(getMeResponse.responseData["firstName"].equals("FOO"))
+        assertTrue(getMeResponse.responseData["lastName"].equals("BAR"))
+
+
     }
 }

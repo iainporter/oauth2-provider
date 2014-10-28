@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 
 import javax.validation.Validator;
@@ -35,6 +36,9 @@ public class UserConfiguration {
     @Autowired
     private DefaultTokenServices tokenServices;
 
+    @Autowired
+    private ClientDetailsService clientDetailsService;
+
     @Bean
     public VerificationTokenService verificationTokenService() {
         return new VerificationTokenServiceImpl(userRepository, verificationTokenRepository, mailSenderService, validator, passwordEncoder);
@@ -47,7 +51,7 @@ public class UserConfiguration {
     
     @Bean
     public UserResource userResource() {
-        return new UserResource(userService(), verificationTokenService(), tokenServices, passwordEncoder);
+        return new UserResource(userService(), verificationTokenService(), tokenServices, passwordEncoder, clientDetailsService);
     }
 
     @Bean
