@@ -1,9 +1,11 @@
 import com.porterhead.user.api.ApiUser
+import org.apache.commons.lang.RandomStringUtils
 
 import static org.hamcrest.Matchers.is
 import static org.hamcrest.Matchers.is
 import static org.hamcrest.Matchers.is
 import static org.hamcrest.Matchers.is
+import static org.junit.Assert.assertEquals
 import static org.junit.Assert.assertThat
 import static org.junit.Assert.assertThat
 import static org.junit.Assert.assertThat
@@ -62,6 +64,17 @@ class UserIntegrationTest extends BaseIntegrationTst {
         def username = createRandomUserName()
         httpSignUpUser(getCreateUserRequest(username, TEST_PASSWORD))
         def loginResponse = httpGetAuthToken(username, TEST_PASSWORD)
+        assertEquals(200, loginResponse.status)
+        assertTrue(loginResponse.responseData["access_token"] != null)
+        assertTrue(loginResponse.responseData["token_type"].equals('bearer'))
+        assertTrue(loginResponse.responseData["refresh_token"] != null)
+        assertTrue(loginResponse.responseData["expires_in"] != null)
+    }
+
+    public void testLoginWithPayload() {
+        def emailAddress = RandomStringUtils.randomAlphanumeric(3) + "+" + RandomStringUtils.randomAlphanumeric(3) + "@example.com"
+        httpSignUpUser(getCreateUserRequest(emailAddress, TEST_PASSWORD))
+        def loginResponse = httpLoginWithPayload(getLoginPayload(emailAddress, TEST_PASSWORD))
         assertEquals(200, loginResponse.status)
         assertTrue(loginResponse.responseData["access_token"] != null)
         assertTrue(loginResponse.responseData["token_type"].equals('bearer'))

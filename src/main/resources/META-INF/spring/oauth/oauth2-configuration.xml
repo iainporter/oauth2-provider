@@ -46,6 +46,7 @@
     </bean>
 
     <bean id="corsFilter" class="com.porterhead.filter.spring.SpringCrossOriginResourceSharingFilter"/>
+    <bean id="payloadMappingAuthenticationFilter" class="com.porterhead.filter.spring.PayloadMappingAuthenticationFilter"/>
 
     <bean id="oauthRestEntryPoint" class="com.porterhead.security.OAuthRestEntryPoint"/>
 
@@ -55,6 +56,7 @@
         <anonymous enabled="false"/>
         <http-basic entry-point-ref="oauthRestEntryPoint"/>
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
+        <custom-filter ref="payloadMappingAuthenticationFilter" before="FIRST"/>
         <custom-filter ref="corsFilter" after="LAST"/>
     </http>
 

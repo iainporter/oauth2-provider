@@ -55,6 +55,14 @@ class BaseIntegrationTst extends GroovyTestCase {
         return getRestClient().get(path: path, contentType: ContentType.JSON, headers: ['Authorization': "Bearer " + authToken])
     }
 
+    protected String getLoginPayload(String emailAddress, String password) {
+        return "{" + getJsonNameValue("username", emailAddress) + "," + getJsonNameValue("password", password) + "}"
+    }
+
+    protected Object httpLoginWithPayload(def jsonPayload) {
+        return getRestClient().post(path: OAUTH_TOKEN_PATH, contentType: ContentType.JSON, headers: ['Authorization': 'Basic ' + BASIC_AUTH_TOKEN], body: jsonPayload)
+    }
+
     protected Object httpUpdateUser(def authToken, def userId, def payload) {
         def path = USER_PATH + "/" + userId
         return getRestClient().put(path: path, contentType: ContentType.JSON, headers: ['Authorization': "Bearer " + authToken], body: payload)
