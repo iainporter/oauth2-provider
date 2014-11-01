@@ -3,10 +3,11 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'war'
-apply plugin: 'tomcat'
-apply plugin: 'jetty'
+//apply plugin: 'tomcat'
+//apply plugin: 'jetty'
 apply plugin: 'mongo'
 apply plugin: 'groovy'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 group = 'com.porterhead.oauth2.provider'
 version = '1.0.SNAPSHOT'
@@ -96,12 +97,6 @@ dependencies {
     testCompile "org.mockito:mockito-all:1.9.0"
 
     testCompile "org.springframework:spring-test:$springFrameworkVersion",
-            //"org.codehaus.groovy.modules.http-builder:http-builder:0.5.2",
-            //"org.codehaus.groovy:groovy-all:$groovyVersion",
-//            "com.sun.jersey:jersey-test-framework:$jerseyVersion",
-//            "com.sun.jersey.jersey-test-framework:jersey-test-framework-grizzly2:$jerseyVersion",
-//            "com.sun.jersey.jersey-test-framework:jersey-test-framework-core:$jerseyVersion",
-//            "com.sun.jersey:jersey-grizzly2:$jerseyVersion",
             "org.glassfish.grizzly:grizzly-http:2.1.2",
             "org.glassfish.gmbal:gmbal-api-only:3.0.0-b023",
             "org.glassfish.external:management-api:3.0.0-b012",
@@ -114,11 +109,11 @@ dependencies {
         exclude group: 'org.codehaus.groovy'
     }
 
-    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
-    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
-        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
-    }
+//    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+//            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+//    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+//        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+//    }
 
     testCompile "org.codehaus.groovy:groovy-all:2.0.0"
 
@@ -177,22 +172,12 @@ dependencies {
     }
 
     task wrapper(type: Wrapper) {
-        gradleVersion = '2.0'
+        gradleVersion = '2.1'
     }
 
 
-    [jettyRun, jettyRunWar, jettyStop]*.stopPort = 8081
-    [jettyRun, jettyRunWar, jettyStop]*.stopKey = 'stopKey'
-
     task integrationTest(type: Test) {
         include '**/*IntegrationTest*.*'
-        doFirst {
-            jettyRun.daemon = true
-            jettyRun.execute()
-        }
-        doLast {
-            jettyStop.execute()
-        }
         dependsOn startManagedMongoDb
 
     }
