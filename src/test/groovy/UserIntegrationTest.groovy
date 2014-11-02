@@ -86,9 +86,9 @@ class UserIntegrationTest extends BaseIntegrationTst {
         try {
             def username = createRandomUserName()
             httpGetAuthToken(username, TEST_PASSWORD)
-            fail("Expected 401 response")
+            fail("Expected 400 response")
         } catch (Exception e) {
-            assertEquals(401, e.response.status)
+            assertEquals(400, e.response.status)
         }
     }
 

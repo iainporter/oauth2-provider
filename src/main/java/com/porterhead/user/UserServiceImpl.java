@@ -117,8 +117,8 @@ public class UserServiceImpl extends BaseService implements UserService, UserDet
         notNull(username, "Mandatory argument 'username' missing.");
         User user = userRepository.findByEmailAddress(username.toLowerCase());
         if (user == null) {
-            LOG.debug("Credentials [{}] failed to locate a user - hint, username.", username.toLowerCase());
-            throw new AuthenticationException();
+            LOG.debug("Credentials [{}] failed to locate a user.", username.toLowerCase());
+            throw new UsernameNotFoundException("failed to locate a user");
         }
         return user;
     }

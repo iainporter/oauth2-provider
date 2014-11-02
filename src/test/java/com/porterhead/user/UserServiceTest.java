@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
 import org.springframework.security.oauth2.provider.token.TokenStore;
@@ -111,7 +112,7 @@ public class UserServiceTest {
         assertThat(user, is(userService.loadUserByUsername(emailAddress)));
     }
 
-    @Test(expected = AuthenticationException.class)
+    @Test(expected = UsernameNotFoundException.class)
     public void userNotFoundByEmailAddress() {
         User user = getDefaultUser();
         when(userRepository.findByEmailAddress(createRandomEmailAddress())).thenReturn(user);
