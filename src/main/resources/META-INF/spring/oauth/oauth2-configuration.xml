@@ -54,7 +54,7 @@
     <http pattern="/oauth/token" create-session="stateless" authentication-manager-ref="clientAuthenticationManager"
           xmlns="http://www.springframework.org/schema/security">
         <anonymous enabled="false"/>
-        <http-basic entry-point-ref="oauthRestEntryPoint"/>
+        <http-basic entry-point-ref="oauthRestEntryPoint" />
         <access-denied-handler ref="oauthAccessDeniedHandler"/>
         <custom-filter ref="payloadMappingAuthenticationFilter" before="FIRST"/>
         <custom-filter ref="corsFilter" after="LAST"/>

@@ -1,5 +1,7 @@
 package com.porterhead.security;
 
+import com.google.gson.Gson;
+import com.porterhead.exception.BadClientCredentialsException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -17,6 +19,10 @@ public class OAuthRestEntryPoint implements AuthenticationEntryPoint {
 
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Bad Credentials");
+        response.setContentType("application/json");
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+        Gson gson = new Gson();
+        String errorEntity = gson.toJson(new BadClientCredentialsException("Bad client credentials"));
+        response.getOutputStream().print(errorEntity);
     }
 }
