@@ -17,7 +17,7 @@ Login:
 curl -v -X POST \
 -H "Content-Type: application/json" \
 -H "Authorization: Basic MzUzYjMwMmM0NDU3NGY1NjUwNDU2ODdlNTM0ZTdkNmE6Mjg2OTI0Njk3ZTYxNWE2NzJhNjQ2YTQ5MzU0NTY0NmM=" \
--d '{"username":"test@example.com", "password":"password"}' \
+  --data-urlencode 'username=test@example.com' --data-urlencode 'password=password' --data-urlencode 'grant_type=password' \
 'http://localhost:8080/oauth2-provider/oauth/token \
 
 
