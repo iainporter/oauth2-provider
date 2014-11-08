@@ -25,10 +25,6 @@ class BaseIntegrationTst extends GroovyTestCase {
         return """{"userName":""" + '\"' + username + '\"' + ""","password":""" + '\"' + password + '\"' + """}"""
     }
 
-    protected String getLoginRequest(String username, String password) {
-        return """{"userName":""" + '\"' + username + '\"' + ""","password":""" + '\"' + password + '\"' + """}"""
-    }
-
     protected String createRandomUserName() {
         return RandomStringUtils.randomAlphabetic(8) + "@example.com";
     }
@@ -53,14 +49,6 @@ class BaseIntegrationTst extends GroovyTestCase {
     protected Object httpGetUser(def authToken, def userId) {
         def path = USER_PATH + "/" + userId
         return getRestClient().get(path: path, contentType: ContentType.JSON, headers: ['Authorization': "Bearer " + authToken])
-    }
-
-    protected String getLoginPayload(String emailAddress, String password) {
-        return "{" + getJsonNameValue("username", emailAddress) + "," + getJsonNameValue("password", password) + "}"
-    }
-
-    protected Object httpLoginWithPayload(def jsonPayload) {
-        return getRestClient().post(path: OAUTH_TOKEN_PATH, contentType: ContentType.JSON, headers: ['Authorization': 'Basic ' + BASIC_AUTH_TOKEN], body: jsonPayload)
     }
 
     protected Object httpUpdateUser(def authToken, def userId, def payload) {

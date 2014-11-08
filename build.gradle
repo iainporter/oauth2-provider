@@ -35,7 +35,7 @@ ext {
     springFrameworkVersion = "4.0.5.RELEASE"
     springDataVersion = "1.6.1.RELEASE"
     springDataMongoDBVersion = "1.5.1.RELEASE"
-    springSecurityOauth2Version = "2.0.2.RELEASE"
+    springSecurityOauth2Version = "2.0.3.RELEASE"
     springIntegrationVersion = "4.0.2.RELEASE"
     tomcatVersion = '7.0.11'
     springSecurityVersion = "3.2.4.RELEASE"

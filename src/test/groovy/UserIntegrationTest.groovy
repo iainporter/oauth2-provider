@@ -71,10 +71,11 @@ class UserIntegrationTest extends BaseIntegrationTst {
         assertTrue(loginResponse.responseData["expires_in"] != null)
     }
 
-    public void testLoginWithPayload() {
+    public void testLoginWithSpecialCharacters() {
         def emailAddress = RandomStringUtils.randomAlphanumeric(3) + "+" + RandomStringUtils.randomAlphanumeric(3) + "@example.com"
-        httpSignUpUser(getCreateUserRequest(emailAddress, TEST_PASSWORD))
-        def loginResponse = httpLoginWithPayload(getLoginPayload(emailAddress, TEST_PASSWORD))
+        def password = "@34 !?1123++"
+        httpSignUpUser(getCreateUserRequest(emailAddress, password))
+        def loginResponse = httpGetAuthToken(emailAddress, password)
         assertEquals(200, loginResponse.status)
         assertTrue(loginResponse.responseData["access_token"] != null)
         assertTrue(loginResponse.responseData["token_type"].equals('bearer'))
