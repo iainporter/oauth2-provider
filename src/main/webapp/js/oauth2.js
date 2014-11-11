@@ -128,8 +128,7 @@ oauth2.login = function (url, data, success, error) {
     url: url,
     type: "POST",
     accept: "application/json",
-    contentType: "application/json",
-    data: JSON.stringify(data),
+    data: data,
     headers: {
       'Authorization' :'Basic ' + authorization
     },

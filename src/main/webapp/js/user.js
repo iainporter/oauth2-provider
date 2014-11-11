@@ -118,6 +118,7 @@ oauth2.user.login = function (email, password, callback) {
       {
       "username" : email,
       "password" : password,
+      "grant_type" : "password"
       },
     function (response) {
         console.log(response)
