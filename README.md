@@ -3,7 +3,7 @@ See <a href="http://porterhead.blogspot.co.uk/2014/05/securing-rest-services-wit
 
 to build and run tests: gradle clean build integrationTest
 
-to run: gradle appRun
+to run: gradle tomcatRun
 
 To register a new user:
 
@@ -35,7 +35,7 @@ To set up for production:
 3. Configure Mail Server by overriding values for mail server in app-production.properties
 4. Build and deploy war. Add System variable to start up command -Dspring.profiles.active=production
 5. Add MongoDB args to start up command-  -DMONGODB_HOST=localhost -DMONGODB_PORT=27017
-Example command line args for using built-in tomcat instance:  ./gradlew appRun -Dspring.profiles.active=production -DMONGODB_HOST=localhost -DMONGODB_PORT=27017
+Example command line args for using built-in tomcat instance:  ./gradlew tomcatRun -Dspring.profiles.active=production -DMONGODB_HOST=localhost -DMONGODB_PORT=27017
 6. Restrict access to all protected URLs via SSL only
 7. The velocity templates and html pages provided are basic and should be customised to your needs
 

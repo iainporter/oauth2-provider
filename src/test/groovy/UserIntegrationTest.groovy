@@ -128,14 +128,15 @@ class UserIntegrationTest extends BaseIntegrationTst {
         def loginResponse = httpGetAuthToken(username, TEST_PASSWORD)
         def getUserResponse = httpGetMe(loginResponse.responseData["access_token"])
 
-        def updateRequest = getUpdateUserRequest("FOO", "BAR", "foobar@example.com")
+        def updatedUserName = createRandomUserName();
+        def updateRequest = getUpdateUserRequest("FOO", "BAR", updatedUserName)
         def updateUserResponse = httpUpdateUser(loginResponse.responseData["access_token"], getUserResponse.responseData["id"], updateRequest)
         assertEquals(200, updateUserResponse.status)
         getUserResponse = httpGetUser(loginResponse.responseData["access_token"], getUserResponse.responseData["id"])
         assertEquals(200, getUserResponse.status)
         assertThat(getUserResponse.responseData["firstName"], is("FOO"))
         assertThat(getUserResponse.responseData["lastName"], is("BAR"))
-        assertThat(getUserResponse.responseData["emailAddress"], is("foobar@example.com"))
+        assertThat(getUserResponse.responseData["emailAddress"], is(updatedUserName))
     }
 
     public void testUpdateRefreshesMeResource() {
@@ -144,10 +145,11 @@ class UserIntegrationTest extends BaseIntegrationTst {
         def loginResponse = httpGetAuthToken(username, TEST_PASSWORD)
         def getUserResponse = httpGetMe(loginResponse.responseData["access_token"])
 
-        def updateRequest = getUpdateUserRequest("FOO", "BAR", "foobar@example.com")
+        def updatedUserName = createRandomUserName();
+        def updateRequest = getUpdateUserRequest("FOO", "BAR", updatedUserName)
         httpUpdateUser(loginResponse.responseData["access_token"], getUserResponse.responseData["id"], updateRequest)
         def getMeResponse = httpGetMe(loginResponse.responseData["access_token"])
-        assertTrue(getMeResponse.responseData["emailAddress"].equals("foobar@example.com"))
+        assertTrue(getMeResponse.responseData["emailAddress"].equals(updatedUserName))
         assertTrue(getMeResponse.responseData["firstName"].equals("FOO"))
         assertTrue(getMeResponse.responseData["lastName"].equals("BAR"))
 

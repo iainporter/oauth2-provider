@@ -6,7 +6,7 @@
             </Pattern>
         </layout>
     </appender>
-    <logger name="com.porterhead" level="INFO"/>
+    <logger name="com.porterhead" level="DEBUG"/>
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>

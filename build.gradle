@@ -3,9 +3,10 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'eclipse'
 apply plugin: 'war'
+apply plugin: 'tomcat'
+apply plugin: 'jetty'
 apply plugin: 'mongo'
 apply plugin: 'groovy'
-apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'
 
 group = 'com.porterhead.oauth2.provider'
 version = '1.0.SNAPSHOT'
@@ -22,6 +23,7 @@ buildscript {
 
         classpath 'org.gradle.api.plugins:gradle-tomcat-plugin:1.0'
         classpath 'com.sourcemuse.gradle.plugin:gradle-mongo-plugin:0.1.0'
+        classpath 'org.hidetake:gradle-ssh-plugin:0.1.7'
 
     }
 }
@@ -107,11 +109,11 @@ dependencies {
         exclude group: 'org.codehaus.groovy'
     }
 
-//    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
-//            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
-//    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
-//        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
-//    }
+    tomcat "org.apache.tomcat.embed:tomcat-embed-core:${tomcatVersion}",
+            "org.apache.tomcat.embed:tomcat-embed-logging-juli:${tomcatVersion}"
+    tomcat("org.apache.tomcat.embed:tomcat-embed-jasper:${tomcatVersion}") {
+        exclude group: 'org.eclipse.jdt.core.compiler', module: 'ecj'
+    }
 
     testCompile "org.codehaus.groovy:groovy-all:2.0.0"
 
@@ -173,9 +175,18 @@ dependencies {
         gradleVersion = '2.1'
     }
 
+    [jettyRun, jettyRunWar, jettyStop]*.stopPort = 8081
+    [jettyRun, jettyRunWar, jettyStop]*.stopKey = 'stopKey'
 
     task integrationTest(type: Test) {
         include '**/*IntegrationTest*.*'
+        doFirst {
+            jettyRun.daemon = true
+            jettyRun.execute()
+        }
+        doLast {
+            jettyStop.execute()
+        }
         dependsOn startManagedMongoDb
 
     }
